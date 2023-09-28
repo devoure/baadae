@@ -8,5 +8,6 @@
      > Full resposive designs for mobile, laptop and desktop
      <details>
       <summary>UI Design Link</summary>
-      [UI](https://github.com/devoure/baadae/tree/main/UI/baadaeUI.pdf)
+       
+      [Click here](https://github.com/devoure/baadae/tree/main/UI/baadaeUI.pdf)
      </details>
