@@ -5,6 +5,7 @@ import {  AiFillTwitterCircle } from "react-icons/ai"
 import {  AiFillFacebook } from "react-icons/ai"
 import { AiOutlineClose } from "react-icons/ai"
 import { useState } from 'react'
+import { Link } from "react-router-dom"
 
 function SignIn(){
   const [signIn, setSignIn] = useState(false)
@@ -68,9 +69,9 @@ function SignIn(){
           <hr className="border border-[#baaf98] w-44"/><span className="font-roboto font-semibold px-4 text-[#220e0a] tablet:text-xl laptop:text-lg">or</span><hr className="border border-[#baaf98] w-40"/>
         </div>
 
-        <div  className="flex items-center justify-center w-96  border-0 bg-[#220e0a] rounded-3xl text-base font-roboto font-semibold text-[#d6a97d] p-3 cursor-pointer tablet:text-lg tablet:rounded-[1.8rem] laptop:text-base">
+        <Link to={ '/create-account' }  className="flex items-center justify-center w-96  border-0 bg-[#220e0a] rounded-3xl text-base font-roboto font-semibold text-[#d6a97d] p-3 cursor-pointer tablet:text-lg tablet:rounded-[1.8rem] laptop:text-base">
             <span className="ml-2 whitespace-nowrap">Create account</span>
-        </div>
+        </Link>
 
         <div className="w-96 p-2 text-xs tablet:text-sm font-roboto text-[#baaf98] font-semibold laptop:text-xs desktop:text-sm" >
           <span>By signing up, you agree to the <span className="text-[#220e0a]">Terms of Service</span> and been a <span className="text-[#220e0a]">Manchester United</span> fan</span>
