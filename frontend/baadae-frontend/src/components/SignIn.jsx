@@ -131,7 +131,7 @@ function SignIn(){
         </div>
 
         <div  className="flex justify-center items-center text-base font-roboto font-semibold text-[#] cursor-pointer">
-            <span className="whitespace-nowrap flex items-center justify-center w-96 border-0 bg-[#220e0a] text-[#d6a97d] rounded-3xl p-3">Next</span>
+            <Link to="/baadae" className="whitespace-nowrap flex items-center justify-center w-96 border-0 bg-[#220e0a] text-[#d6a97d] rounded-3xl p-3">Next</Link>
         </div>
        
         <div  className="flex justify-center items-center text-base font-roboto font-semibold text-[#] cursor-pointer">
