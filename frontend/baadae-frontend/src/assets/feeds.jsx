@@ -26,7 +26,7 @@ export default[
     desc: "IM FINALLY A REEED !!",
     bookmark: rasBook1,
     views: "23k",
-    likes: "143k"
+    likes: "143k",
     id: 2
   },
   {
@@ -36,7 +36,7 @@ export default[
     desc: "Trying to get there",
     bookmark: rashyBook1,
     views: "43k",
-    likes: "5k"
+    likes: "5k",
     id: 3
   },
   {
@@ -46,7 +46,7 @@ export default[
     desc: "Paris Nights",
     bookmark: rashyBook2,
     views: "143k",
-    likes: "15k"
+    likes: "15k",
     id: 4
   },
   {
@@ -56,7 +56,7 @@ export default[
     desc: "An honour to be selected",
     bookmark: brunoBook1,
     views: "243k",
-    likes: "25k"
+    likes: "25k",
     id: 5
   },
   {
@@ -66,7 +66,7 @@ export default[
     desc: "HOMEEE",
     bookmark: brunoBook2,
     views: "343k",
-    likes: "35k"
+    likes: "35k",
     id: 6
   },
 ]
