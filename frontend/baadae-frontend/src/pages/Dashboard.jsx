@@ -48,7 +48,7 @@ function Dashboard() {
     <div className="w-screen h-screen">
       <div className="w-full h-full relative">
 
-        <div className={ sideBar ? "fixed inset-y-0 left-0 w-80 bg-white tablet:hidden flex flex-col justify-between overflow-hidden border-r-2 border-[#220e0a] pr-2 transition-all duration-500" : "fixed inset-y-0 left-0 w-0 bg-white tablet:hidden flex flex-col justify-between overflow-hidden transition-all duration-500" }>
+        <div className={ sideBar ? "fixed z-50 inset-y-0 left-0 w-80 bg-white tablet:hidden flex flex-col justify-between overflow-hidden border-r-2 border-[#220e0a] pr-2 transition-all duration-500" : "fixed z-10 inset-y-0 left-0 w-0 bg-white tablet:hidden flex flex-col justify-between overflow-hidden transition-all duration-500" }>
 
           <div className="flex h-16 items-center justify-end">
             <div className="h-12 w-12 flex items-center justify-center hover:bg-[#220e0a] cursor-pointer rounded-full text-[#220e0a] hover:text-white transition duration-300" onClick={ ()=>setSideBar(false) }>
@@ -120,9 +120,13 @@ function Dashboard() {
 
         </div>
 
-        <div className="flex flex-col h-[130px] min-w-[375px]">
+        <div className="flex flex-col h-[130px] tablet:h-[140px] justify-between min-w-[375px] w-full border-b border-[#baaf98] fixed z-10 backdrop-blur-xl bg-white/95 tablet:max-w-[600px]">
 
-          <div className="flex w-full h-[70%]">
+          <div className="w-full h-[130px] hidden tablet:flex items-center justify-start pl-5 font-roboto font-semibold text-3xl">
+            <span>Dashboard</span>
+          </div>
+
+          <div className="flex w-full h-[80px] tablet:hidden">
             <div className="flex h-full w-[40%] items-center pl-5">
               <img src={ profPic } className="h-[3rem] w-[3rem] object-cover rounded-full cursor-pointer hover:border-2 border-[#220e0a] transition duration-300" onClick={ ()=>setSideBar(true) }/>
             </div>
@@ -132,7 +136,7 @@ function Dashboard() {
             </div>
           </div>
 
-          <div className="flex w-full h-[30%] items-center justify-evenly font-roboto text-lg font-semibold">
+          <div className="flex w-full h-[40px] text-center justify-evenly font-roboto text-lg font-semibold">
 
             <span className={ activeComp.feed ?  "text-[#220e0a] p-2 border-b-4 border-[#220e0a] cursor-pointer" : "text-[#baaf98] p-2 cursor-pointer" } onClick={ setActive } id="feed" >Feed</span>
             <span className={ activeComp.people ?  "text-[#220e0a] p-2 border-b-4 border-[#220e0a] cursor-pointer" : "text-[#baaf98] p-2 cursor-pointer" } onClick={ setActive } id="people">People</span>

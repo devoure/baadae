@@ -37,7 +37,7 @@ function Feed(){
     )
   })
   return (
-    <div className="flex flex-col w-[375px] pt-5">
+    <div className="flex flex-col w-[375px] pt-[150px]">
       { feedsCard }
     </div>
   )
