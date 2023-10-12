@@ -3,6 +3,8 @@ import siteLogo from "../assets/sitelogo.png"
 import Bookmarks from "../components/Bookmarks.jsx"
 import People from "../components/People.jsx"
 import Feed from "../components/Feed.jsx"
+import SideBar from "../components/SideBar.jsx"
+
 import { IoMdArrowRoundBack } from "react-icons/io"
 import { AiFillBell } from "react-icons/ai"
 import { BsBookmarkFill } from "react-icons/bs"
@@ -45,8 +47,9 @@ function Dashboard() {
   }
 
   return (
-    <div className="w-screen h-screen">
-      <div className="w-full h-full relative">
+    <div className="w-screen h-max">
+      <div className="w-full h-full relative flex tablet:justify-center tablet:items-start">
+        <SideBar />
 
         <div className={ sideBar ? "fixed z-50 inset-y-0 left-0 w-80 bg-white tablet:hidden flex flex-col justify-between overflow-hidden border-r-2 border-[#220e0a] pr-2 transition-all duration-500" : "fixed z-10 inset-y-0 left-0 w-0 bg-white tablet:hidden flex flex-col justify-between overflow-hidden transition-all duration-500" }>
 
@@ -120,6 +123,7 @@ function Dashboard() {
 
         </div>
 
+        <div className="">
         <div className="flex flex-col h-[130px] tablet:h-[140px] justify-between min-w-[375px] w-full border-b border-[#baaf98] fixed z-10 backdrop-blur-xl bg-white/95 tablet:max-w-[600px]">
 
           <div className="w-full h-[130px] hidden tablet:flex items-center justify-start pl-5 font-roboto font-semibold text-3xl">
@@ -149,6 +153,7 @@ function Dashboard() {
         { activeComp.feed && <Feed /> }
         { activeComp.people && <People /> }
         { activeComp.bookmarks && <Bookmarks /> }
+      </div>
 
       </div>
     </div>

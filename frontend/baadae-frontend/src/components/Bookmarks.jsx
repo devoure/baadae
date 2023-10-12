@@ -33,7 +33,7 @@ function Bookmarks(){
     )
   })
   return (
-    <div className="flex flex-col min-w-[375px] pt-[130px] tablet:max-w-[600px]">
+    <div className="flex flex-col min-w-[375px] pt-[130px] tablet:min-w-[600px]">
       { feedsCard }
     </div>
   )
