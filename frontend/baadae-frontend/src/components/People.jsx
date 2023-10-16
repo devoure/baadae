@@ -19,7 +19,7 @@ function People(){
             <span className="text-sm text-[#220e0a]">{ person.likes } likes </span>
           </div>
           <div className="flex items-center">
-            <BsBookmarkFill className="text-lg tablet:text-2xl mr-3 text-[#d6a97d]"/>
+            <BsBookmarkFill className="text-lg tablet:text-xl mr-3 text-[#d6a97d]"/>
             <span className="text-sm text-[#220e0a]">{ person.bookmarks } bookmarks</span>
           </div>
         </div>

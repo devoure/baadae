@@ -1,6 +1,8 @@
 import siteLogo from "../assets/sitelogo.png"
 import profPic from "../assets/profpic.png"
 
+import { Link } from "react-router-dom"
+
 import { AiFillBell } from "react-icons/ai"
 import { BsBookmarkFill } from "react-icons/bs"
 import { BiSolidUser } from "react-icons/bi"
@@ -42,14 +44,14 @@ function SideBar(){
               <span className="font-roboto text-xl ml-4 text-[#220e0a] select-none whitespace-nowrap">My Bookmarks</span>
             </div>
           </div>
-          <div className="flex items-center justify-center laptop:justify-start laptop:w-full mb-5 tablet:w-16 tablet:h-16 tablet:rounded-full laptop:rounded-none hover:bg-[#ebebeb] cursor-pointer">
+          <Link to={ '/profile' } className="flex items-center justify-center laptop:justify-start laptop:w-full mb-5 tablet:w-16 tablet:h-16 tablet:rounded-full laptop:rounded-none hover:bg-[#ebebeb] cursor-pointer">
             <div className="w-16 h-16 flex items-center justify-center relative">
               <BiSolidUser className="text-4xl text-[#220e0a]"/>
             </div>
             <div className="hidden laptop:block">
               <span className="font-roboto text-xl ml-4 text-[#220e0a] whitespace-nowrap">Visit Profile</span>
             </div>
-          </div>
+          </Link>
         </div>
 
         <div className="h-[15%] min-h-[5rem] w-full flex items-center justify-center">

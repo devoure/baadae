@@ -4,6 +4,7 @@ import Bookmarks from "../components/Bookmarks.jsx"
 import People from "../components/People.jsx"
 import Feed from "../components/Feed.jsx"
 import SideBar from "../components/SideBar.jsx"
+import TopBookmarks from "../components/TopBookmarks.jsx"
 
 import { IoMdArrowRoundBack } from "react-icons/io"
 import { AiFillBell } from "react-icons/ai"
@@ -154,6 +155,8 @@ function Dashboard() {
         { activeComp.people && <People /> }
         { activeComp.bookmarks && <Bookmarks /> }
       </div>
+
+      <TopBookmarks />
 
       </div>
     </div>
