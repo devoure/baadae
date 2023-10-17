@@ -100,8 +100,9 @@ function ProfileComp() {
           </div>
 
         </div>
+      </div>
 
-        <div className="w-full h-max font-roboto mt-8 flex flex-col items-center">
+      <div className="w-full h-max font-roboto mt-8 flex flex-col items-center">
           <div className="w-[90%] h-16 font-semibold text-xl border-b-2 border-[#ebebeb] flex items-end">
             <span className="h-full w-max border-b-4 border-[#d6a97d] py-3">My Bookmarks</span>
           </div>
@@ -109,9 +110,7 @@ function ProfileComp() {
           <div className="w-full h-max flex flex-col items-center pt-[20px]">
             { feedsCard }
           </div>
-        </div>
       </div>
-
     </div>
   )
 }
