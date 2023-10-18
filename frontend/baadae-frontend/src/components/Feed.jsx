@@ -2,12 +2,14 @@ import feeds from "../assets/feeds.jsx"
 import { AiFillHeart } from "react-icons/ai"
 import { AiFillEye } from "react-icons/ai"
 
+import { Link } from "react-router-dom"
+
 
 function Feed(){
 
   const feedsCard = feeds.map((feed)=>{
     return(
-      <div className="group flex flex-col justify-between items-end w-full min-h-[420px] mb-10 hover:bg-[#fafafa] cursor-pointer pt-5 tablet:min-h-[430px]" key={ feed.id }>
+      <Link to={ `/feeds/${ feed.id }` } state={ feed } className="group flex flex-col justify-between items-end w-full min-h-[420px] mb-10 hover:bg-[#fafafa] cursor-pointer pt-5 tablet:min-h-[430px]" key={ feed.id }>
         <div className="flex h-12 w-full font-roboto font-semibold text-sm items-center justify-between select-none text-[#baaf98] px-5">
           <span className="flex items-center"><AiFillHeart className="text-2xl inline mr-2"/>Bruno Liked</span>
           <span>~ { feed.time } ago</span>
@@ -33,7 +35,7 @@ function Feed(){
             </div>
           </div>
         </div>
-      </div>
+      </Link>
     )
   })
   return (

@@ -5,6 +5,10 @@ import Dashboard from './pages/Dashboard.jsx'
 import NotFound from './pages/NotFound.jsx'
 import Profile from './pages/Profile.jsx'
 
+import PeopleDetail from './pages/PeopleDetail.jsx'
+import FeedDetail from './pages/FeedDetail.jsx'
+import BookmarkDetail from './pages/BookmarkDetail.jsx'
+
 import { Routes, Route } from "react-router-dom"
 function App() {
 
@@ -19,6 +23,16 @@ function App() {
         </Route>
 
         <Route element= { <Dashboard /> } path = "/baadae" />
+        <Route path="/feeds">
+          <Route path=":id" element={ <FeedDetail /> } />
+        </Route>
+        <Route path="/bookmarks">
+          <Route path=":id" element={ <BookmarkDetail /> } />
+        </Route>
+        <Route path="/people">
+          <Route path=":id" element={ <PeopleDetail /> } />
+        </Route>
+
         <Route element= { <NotFound /> } path = "*" />
       </Routes>
     </>

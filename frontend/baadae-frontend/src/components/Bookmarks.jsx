@@ -2,12 +2,14 @@ import feeds from "../assets/feeds.jsx"
 import { AiFillHeart } from "react-icons/ai"
 import { AiFillEye } from "react-icons/ai"
 
+import { Link } from "react-router-dom"
+
 
 function Bookmarks(){
 
   const feedsCard = feeds.map((feed)=>{
     return(
-      <div className="group flex flex-col justify-between items-end w-full min-h-[420px] mb-10 hover:bg-[#fafafa] cursor-pointer pt-5 tablet:min-h-[430px]" key={ feed.id }>
+      <Link to={`/bookmarks/${feed.id}`} state={ feed } className="group flex flex-col justify-between items-end w-full min-h-[420px] mb-10 hover:bg-[#fafafa] cursor-pointer pt-5 tablet:min-h-[430px]" key={ feed.id }>
         <div className="flex items-start h-16 w-full px-5 select-none">
           <img src={ feed.profpic } className="w-14 h-14 tablet:w-16 tablet:h-16 object-cover rounded-full"/>
           <div className="flex flex-col h-full font-roboto font-semibold ml-5">
@@ -29,11 +31,11 @@ function Bookmarks(){
             </div>
           </div>
         </div>
-      </div>
+      </Link>
     )
   })
   return (
-    <div className="flex flex-col min-w-[375px] pt-[130px] tablet:min-w-[600px]">
+    <div className="flex flex-col min-w-[375px] pt-[130px] tablet:max-w-[600px]">
       { feedsCard }
     </div>
   )
