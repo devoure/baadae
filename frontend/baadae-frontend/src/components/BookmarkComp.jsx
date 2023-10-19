@@ -6,7 +6,7 @@ import { BiArrowBack } from "react-icons/bi"
 import { AiFillHeart } from "react-icons/ai"
 import { AiFillEye } from "react-icons/ai"
 
-function FeedComponent() {
+function BookmarkComp() {
   const feedDetails = useLocation()
   const [liked, setLiked] = useState(false)
 
@@ -55,4 +55,4 @@ function FeedComponent() {
   )
 }
 
-export default FeedComponent
+export default BookmarkComp
