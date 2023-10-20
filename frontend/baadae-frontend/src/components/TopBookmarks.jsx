@@ -26,7 +26,7 @@ function TopBookmarks(){
   })
   return (
     <div className="hidden laptop:flex sticky inset-y-0 right-0 h-screen w-[300px] desktop:w-[330px] border-l border-l-[#baaf98] items-center justify-center">
-      <div className="h-max desktop:h-[80%] max-h-[800px] w-[80%] w-[250px] desktop:w-[300px] bg-[#ebebeb] flex flex-col items-center rounded-2xl">
+      <div className="h-max desktop:h-[80%] max-h-[800px] w-[80%] w-[250px] desktop:w-[300px] flex flex-col items-center rounded-2xl">
         <div className="font-roboto font-semibold text-[#220e0a] text-xl w-full p-2 mb-2 desktop:text-2xl ">
           Top Bookmarks
         </div>
