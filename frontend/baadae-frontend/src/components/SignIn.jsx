@@ -4,11 +4,19 @@ import { AiFillGoogleSquare } from "react-icons/ai"
 import {  AiFillTwitterCircle } from "react-icons/ai"
 import {  AiFillFacebook } from "react-icons/ai"
 import { AiOutlineClose } from "react-icons/ai"
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { Link } from "react-router-dom"
 
+import { AuthContext } from "../contexts/AuthContext.jsx"
+
 function SignIn(){
+  let { loginUser } = useContext(AuthContext)
+
   const [signIn, setSignIn] = useState(false)
+  const [loginCred, setLoginCred] = useState({
+    username : "",
+    password : ""
+  })
 
   function displaySignIn(){
     setSignIn(true)
