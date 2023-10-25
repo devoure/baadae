@@ -14,7 +14,7 @@ export default function AuthProvider(props){
   let loginUser = async (e, loginCred) => {
     e.preventDefault()
 
-    let response = await fetch('http://127.0.0.1:8000/api/v1/accounts/token/', {
+    let response = await fetch('http://127.0.0.1:8000/api/accounts/v1/token/', {
       method:'POST',
       headers:{
         'Content-Type':'application/json'
@@ -41,9 +41,9 @@ export default function AuthProvider(props){
   }
 
   let updateToken = async ()=> {
-    let response = await fetch('http://127.0.0.1:8000/api/v1/accounts/token/refresh/', {
+    let response = await fetch('http://127.0.0.1:8000/api/accounts/v1/token/refresh/', {
       method:'POST',
-      header:{
+      headers:{
         'Content-Type':'application/json'
       },
       body:JSON.stringify({'refresh':authToken?.refresh})
@@ -68,7 +68,7 @@ export default function AuthProvider(props){
     user: user,
     authToken: authToken,
     loginUser: loginUser,
-    logOutUser: logOutUser
+    logOutUser: logOutUser,
   }
 
   useEffect(()=>{

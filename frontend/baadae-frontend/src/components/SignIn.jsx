@@ -10,13 +10,35 @@ import { Link } from "react-router-dom"
 import { AuthContext } from "../contexts/AuthContext.jsx"
 
 function SignIn(){
-  let { loginUser } = useContext(AuthContext)
+ let { loginUser } = useContext(AuthContext)
 
   const [signIn, setSignIn] = useState(false)
+  const [loginSlider, setLoginSlider] = useState(false)
   const [loginCred, setLoginCred] = useState({
     username : "",
     password : ""
   })
+
+  function handleLoginInput(e){
+    setLoginCred((prev)=>{
+      return(
+        {...prev, [e.target.name]:e.target.value}
+      )
+    })
+  }
+
+  function loginBtn(e){
+    setLoginSlider(true)
+    let usernameLen = loginCred.username.length
+    let passwordLen = loginCred.password.length
+    if (usernameLen > 0 && passwordLen > 0){
+      loginUser(e, loginCred)
+      
+      setLoginSlider(false)
+      setLoginCred({ username:"", password: "" })
+      
+    }
+  }
 
   function displaySignIn(){
     setSignIn(true)
@@ -134,12 +156,15 @@ function SignIn(){
           <hr className="border border-[#baaf98] w-44"/><span className="font-roboto font-semibold px-4 text-[#220e0a]">or</span><hr className="border border-[#baaf98] w-40"/>
         </div>
 
-        <div className="flex items-center justify-center">
-          <input type="text" placeholder="Enter Username" className="w-96 border border-[#baaf98] p-3 text-base font-semibold font-roboto appearance-none text-[#220e0a]"/>
+        <div className="overflow-hidden w-96">
+          <div className={ loginSlider ? "flex -translate-x-96 transition-all duration-300" : "flex transition-all duration-300" }>
+          <input type="text" placeholder="Enter Username" className="min-w-full border border-[#baaf98] p-3 text-base font-semibold font-roboto appearance-none text-[#220e0a]" required onChange={ handleLoginInput } value={ loginCred.username } name="username"/>
+          <input type="password" placeholder="Enter Password" className="min-w-full border border-[#baaf98] p-3 text-base font-semibold font-roboto appearance-none text-[#220e0a]" required name="password" value={ loginCred.password } onChange={ handleLoginInput }/>
+          </div>
         </div>
 
         <div  className="flex justify-center items-center text-base font-roboto font-semibold text-[#] cursor-pointer">
-            <Link to="/baadae" className="whitespace-nowrap flex items-center justify-center w-96 border-0 bg-[#220e0a] text-[#d6a97d] rounded-3xl p-3">Next</Link>
+          <div className="whitespace-nowrap flex items-center justify-center w-96 border-0 bg-[#220e0a] text-[#d6a97d] rounded-3xl p-3" onClick={ loginBtn }>{ loginSlider ? "Login" : "Next" }</div>
         </div>
        
         <div  className="flex justify-center items-center text-base font-roboto font-semibold text-[#] cursor-pointer">
