@@ -11,9 +11,11 @@ import { AiFillBell } from "react-icons/ai"
 import { BsBookmarkFill } from "react-icons/bs"
 import { BiSolidUser } from "react-icons/bi"
 
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { AuthContext } from "../contexts/AuthContext.jsx"
 
 function Dashboard() {
+  const { logOutUser } = useContext(AuthContext)
   const [activeComp, setActiveComp] = useState({
     "feed":true,
     "people":false,
@@ -118,7 +120,7 @@ function Dashboard() {
 
             <div className="flex  flex-col h-16 font-roboto font-semibold text-xl ml-4">
               <span className="text-[220e0a] select-none">Athumani</span>
-              <span className="text-red-700 text-lg text-center cursor-pointer hover:border-b-4 border-[#220e0a]">Log out</span>
+              <span className="text-red-700 text-lg text-center cursor-pointer hover:border-b-4 border-[#220e0a]" onClick={ logOutUser }>Log out</span>
             </div>
           </div>
 
