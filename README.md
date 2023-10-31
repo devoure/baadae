@@ -3,6 +3,14 @@
 ## 💬 Description
 > This is a full stack project that is build with django and react
 ## 📜 More
+> ## Design
+  1. Design on the website created with canva
+    > Pdf file with the design sheets
+    <details>
+        <summary>Design Sheets</summary>
+        ![design](./UI/baadaeUI.pdf)
+    </details>
+
 > ## Database
 > ## Backend
 > ## Frontend
