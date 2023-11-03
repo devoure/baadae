@@ -12,6 +12,7 @@
     </details>
 
 > ## Database
+> Database used is sqlite3
 > ## Backend
 > ## Frontend
 > ## Docker
