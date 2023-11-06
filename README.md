@@ -12,8 +12,9 @@
     </details>
 
 > ## Database
-> Database used is sqlite3
+> Database used is sqlite3.
 > ## Backend
+> Backend implemented with Django REST framework.
 > ## Frontend
 > ## Docker
 ## 🔧 Code Setup
