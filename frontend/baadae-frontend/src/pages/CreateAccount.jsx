@@ -1,8 +1,39 @@
-import { Link } from "react-router-dom"
+import { useState, useContext } from "react"
 import siteLogo from "../assets/sitelogo.png"
 import siteImg from "../assets/siteimage.jpg"
+import { AuthContext } from "../contexts/AuthContext.jsx"
 
 function CreateAccount() {
+  let { createAccount } = useContext(AuthContext)
+
+  const [accountCred, setAccountCred] = useState({
+    username : "",
+    first_name : "",
+    last_name : "",
+    email : "",
+    password : "",
+    password2 : ""
+  })
+
+  function handleSignUp(e){
+    setAccountCred((prev)=>{
+      return(
+        {...prev, [e.target.name]:e.target.value}
+      )
+    })
+  }
+
+  function signUp(e){
+    createAccount(e, accountCred)
+    setAccountCred({
+      username : "",
+      first_name : "",
+      last_name : "",
+      email: "",
+      password : "",
+      password2 : ""
+    })
+  }
   return (
     <div className="w-screen h-screen tablet:flex tablet:items-center tablet:justify-center">
 
@@ -32,28 +63,33 @@ function CreateAccount() {
         </div>
         
         <div className="flex items-center justify-center">
-          <input type="text" placeholder="Enter Username" className="w-80 border border-[#baaf98] p-3 text-base font-semibold font-roboto appearance-none text-[#220e0a]"/>
+          <input type="text" placeholder="Enter Username" className="w-80 border border-[#baaf98] p-3 text-base font-semibold font-roboto appearance-none text-[#220e0a]" required onChange={ handleSignUp } value={ accountCred.username } name="username" />
         </div>
 
         <div className="flex items-center justify-center">
-          <input type="text" placeholder="Enter First Name" className="w-80 border border-[#baaf98] p-3 text-base font-semibold font-roboto appearance-none text-[#220e0a]"/>
+          <input type="text" placeholder="Enter First Name" className="w-80 border border-[#baaf98] p-3 text-base font-semibold font-roboto appearance-none text-[#220e0a]" required onChange={ handleSignUp } value={ accountCred.first_name } name="first_name" />
         </div>
 
         <div className="flex items-center justify-center">
-          <input type="text" placeholder="Enter Second Name" className="w-80 border border-[#baaf98] p-3 text-base font-semibold font-roboto appearance-none text-[#220e0a]"/>
+          <input type="text" placeholder="Enter Second Name" className="w-80 border border-[#baaf98] p-3 text-base font-semibold font-roboto appearance-none text-[#220e0a]" required onChange={ handleSignUp } value={ accountCred.last_name } name="last_name" />
         </div>
 
         <div className="flex items-center justify-center">
-          <input type="password" placeholder="Enter Password" className="w-80 border border-[#baaf98] p-3 text-base font-semibold font-roboto appearance-none text-[#220e0a]"/>
+          <input type="text" placeholder="Enter Email" className="w-80 border border-[#baaf98] p-3 text-base font-semibold font-roboto appearance-none text-[#220e0a]" required onChange={ handleSignUp } value={ accountCred.email } name="email" />
+        </div>
+
+
+        <div className="flex items-center justify-center">
+          <input type="password" placeholder="Enter Password" className="w-80 border border-[#baaf98] p-3 text-base font-semibold font-roboto appearance-none text-[#220e0a]" required onChange={ handleSignUp } value={ accountCred.password } name="password" />
         </div>
 
         <div className="flex items-center justify-center">
-          <input type="password" placeholder="Confirm Password" className="w-80 border border-[#baaf98] p-3 text-base font-semibold font-roboto appearance-none text-[#220e0a]"/>
+          <input type="password" placeholder="Confirm Password" className="w-80 border border-[#baaf98] p-3 text-base font-semibold font-roboto appearance-none text-[#220e0a]" required onChange={ handleSignUp } value={ accountCred.password2 } name="password2" />
         </div>
 
-          <Link to={ '/success' }  className="flex items-center justify-center w-80  border-0 bg-[#220e0a] rounded-3xl text-base font-roboto font-semibold text-[#d6a97d] p-3 cursor-pointer">
+          <div className="flex items-center justify-center w-80  border-0 bg-[#220e0a] rounded-3xl text-base font-roboto font-semibold text-[#d6a97d] p-3 cursor-pointer" onClick={ signUp }>
             <span className="ml-2 whitespace-nowrap">Create account</span>
-        </Link>
+        </div>
 
       </div>
     </div>

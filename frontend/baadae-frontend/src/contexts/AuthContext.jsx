@@ -40,6 +40,25 @@ export default function AuthProvider(props){
     navigate("/")
   }
 
+  let createAccount = async (e, accountCred) => {
+    e.preventDefault()
+
+    let response = await fetch('http://127.0.0.1:8000/api/accounts/v1/user/add', {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify(accountCred)
+    })
+
+    let data = await response.json()
+    if (data === "OK"){
+      navigate("/success")
+    }else{
+      alert("Something went wrong, try again !")
+    }
+  }
+
   let updateToken = async ()=> {
     let response = await fetch('http://127.0.0.1:8000/api/accounts/v1/token/refresh/', {
       method:'POST',
@@ -69,6 +88,7 @@ export default function AuthProvider(props){
     authToken: authToken,
     loginUser: loginUser,
     logOutUser: logOutUser,
+    createAccount: createAccount
   }
 
   useEffect(()=>{
