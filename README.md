@@ -15,6 +15,8 @@
 > Database used is sqlite3.
 > ## Backend
 > Backend implemented with Django REST framework.
+  1. Account Sign Up and Sign In
+
 > ## Frontend
 > ## Docker
 ## 🔧 Code Setup
