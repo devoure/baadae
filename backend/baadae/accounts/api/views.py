@@ -6,6 +6,11 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .serializers import UserSerializers
+from .serializers import ProfileSerializers
+from .serializers import UserUpdateSerializers
+
+from accounts.models import Profile
+from django.contrib.auth.models import User
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -31,3 +36,41 @@ def add_user(request):
         new_user.save()
         return Response("OK")
     return Response("ERROR")
+
+
+@api_view(['GET'])
+def get_profiles(request):
+    profiles = Profile.objects.all()
+    result = ProfileSerializers(profiles, many=True)
+    return Response(result.data)
+
+
+@api_view(['GET'])
+def get_profile(request, pk):
+    user = User.objects.get(id=pk)
+    profile = Profile.objects.get(user=user)
+    result = ProfileSerializers(profile, many=False)
+    return Response(result.data)
+
+
+@api_view(['POST'])
+def update_profile(request, pk): 
+    user = User.objects.get(id=pk)
+    profile = Profile.objects.get(user=user)
+    updated_profile = ProfileSerializers(instance=profile,
+                                         data=request.data["profile"],
+                                         partial=True)
+    updated_user = UserUpdateSerializers(instance=user,
+                                         data=request.data["user"],
+                                         partial=True)
+
+    res = "ERROR"
+    if updated_profile.is_valid():
+        updated_profile.save()
+        res = "SUCCESS"
+
+    if updated_user.is_valid():
+        updated_user.save()
+        res = "ALL_SUCCESS"
+
+    return Response(res)
