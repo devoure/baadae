@@ -53,6 +53,13 @@ def get_profile(request, pk):
     return Response(result.data)
 
 
+@api_view(['GET'])
+def get_user(request, pk):
+    user = User.objects.get(id=pk)
+    result = UserUpdateSerializers(user, many=False)
+    return Response(result.data)
+
+
 @api_view(['POST'])
 def update_profile(request, pk): 
     user = User.objects.get(id=pk)

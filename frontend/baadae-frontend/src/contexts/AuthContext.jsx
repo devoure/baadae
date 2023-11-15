@@ -9,7 +9,37 @@ export default function AuthProvider(props){
   let [user, setUser] = useState(()=> localStorage.getItem('authToken') ? jwt_decode(localStorage.getItem('authToken')) : null)
   let [loading, setLoading] = useState(true)
 
+  let [userCred, setUserCred] = useState({
+    email:"",
+    first_name:"",
+    last_name:"",
+    date_joined:""
+  })
+
+  let [userProfile, setUserProfile] = useState({
+    bio:"",
+    photo:"",
+    location:"",
+    banner:"",
+    id:"",
+    user:"",
+  })
+
   let navigate = useNavigate()
+
+  let getUserData = async(id) => {
+    let userCredRes = await fetch(`http://127.0.0.1:8000/api/accounts/v1/users/${id}/`)
+    let userData = await userCredRes.json()
+    if (userCredRes.status === 200){
+      setUserCred(userData)
+    }
+
+    let res = await fetch(`http://127.0.0.1:8000/api/accounts/v1/profiles/${id}/`)
+    let data = await res.json()
+    if (res.status === 200){
+      setUserProfile(data)
+    }
+  }
 
   let loginUser = async (e, loginCred) => {
     e.preventDefault()
@@ -27,6 +57,7 @@ export default function AuthProvider(props){
       setAuthToken(data)
       setUser(jwt_decode(data.access))
       localStorage.setItem('authToken', JSON.stringify(data))
+      getUserData(jwt_decode(data.access).user_id)
       navigate("/baadae")
     }else{
       alert("Something went wrong")
@@ -85,6 +116,8 @@ export default function AuthProvider(props){
 
   let contextData = {
     user: user,
+    userCred:userCred,
+    userProfile:userProfile,
     authToken: authToken,
     loginUser: loginUser,
     logOutUser: logOutUser,

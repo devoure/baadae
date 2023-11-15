@@ -10,9 +10,15 @@ import { BiSolidUser } from "react-icons/bi"
 import feeds from "../assets/feeds.jsx"
 import { AiFillEye } from "react-icons/ai"
 
+import { useContext } from "react"
+
 import { Link } from "react-router-dom"
 
+import { AuthContext } from "../contexts/AuthContext.jsx"
+
 function ProfileComp() {
+  const { user } = useContext(AuthContext)
+  console.log(user)
   const feedsCard = feeds.map((feed)=>{
     return(
       <div className="group w-full h-[400px] mb-4 flex flex-col items-center hover:bg-[#ebebeb] cursor-pointer" key={ feed.id }>
@@ -55,7 +61,7 @@ function ProfileComp() {
       </div>
 
       <div className="flex h-16 font-roboto font-semibold text-white items-center justify-end text-lg">
-        <span className="bg-[#220e0a] mr-[4rem] px-6 py-2 rounded-[4rem] select-none cursor-pointer">Follow</span>
+        <span className="bg-[#220e0a] mr-[4rem] px-6 py-2 rounded-[4rem] select-none cursor-pointer">Edit Profile</span>
       </div>
 
       <div className="flex flex-col h-[200px] select-none whitespace-nowrap items-center">
