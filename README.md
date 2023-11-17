@@ -17,6 +17,7 @@
 > Backend implemented with Django REST framework.
   1. Account Sign Up and Sign In
   1. Account Changes
+  1. User Profiles
 
 
 > ## Frontend
