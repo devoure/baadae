@@ -12,6 +12,8 @@ import { BsBookmarkFill } from "react-icons/bs"
 import { BiSolidUser } from "react-icons/bi"
 
 import { useState, useContext } from "react"
+import { Link } from "react-router-dom"
+
 import { AuthContext } from "../contexts/AuthContext.jsx"
 
 function Dashboard() {
@@ -97,7 +99,7 @@ function Dashboard() {
               </div>
             </div>
 
-            <div className="flex items-center pl-[3rem] hover:bg-[#e4dedc] cursor-pointer hover:border-r-4 border-[#220e0a] transition duration-300">
+            <Link to={'/profile'} className="flex items-center pl-[3rem] hover:bg-[#e4dedc] cursor-pointer hover:border-r-4 border-[#220e0a] transition duration-300">
               <div className="w-16 h-16 flex items-center justify-center">
                 <BiSolidUser className="text-4xl text-[#220e0a]"/>
               </div>
@@ -105,7 +107,7 @@ function Dashboard() {
               <div>
                 <span className="font-roboto text-xl ml-4 text-[#220e0a] whitespace-nowrap">Visit Profile</span>
               </div>
-            </div>
+            </Link>
 
           </div>
           

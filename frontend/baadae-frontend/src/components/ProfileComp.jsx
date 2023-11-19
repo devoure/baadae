@@ -16,9 +16,8 @@ import { Link } from "react-router-dom"
 
 import { AuthContext } from "../contexts/AuthContext.jsx"
 
-function ProfileComp() {
+function ProfileComp(props) {
   const { user } = useContext(AuthContext)
-  console.log(user)
   const feedsCard = feeds.map((feed)=>{
     return(
       <div className="group w-full h-[400px] mb-4 flex flex-col items-center hover:bg-[#ebebeb] cursor-pointer" key={ feed.id }>
@@ -40,7 +39,7 @@ function ProfileComp() {
     )
   })
   return (
-    <div className="min-w-[375px] flex flex-col">
+    <div className={ props.editActive ? "min-w-[375px] flex flex-col blur-sm" : "min-w-[375px] flex flex-col" }>
       <div className="w-full h-20 flex items-center pl-4 text-[#220e0a] border-b border-[#ebebeb]">
         <Link to='/baadae' className="h-12 w-12 flex hover:bg-[#ebebeb] rounded-full cursor-pointer items-center justify-center text-3xl transition duration-300">
           <BiArrowBack />
@@ -61,7 +60,7 @@ function ProfileComp() {
       </div>
 
       <div className="flex h-16 font-roboto font-semibold text-white items-center justify-end text-lg">
-        <span className="bg-[#220e0a] mr-[4rem] px-6 py-2 rounded-[4rem] select-none cursor-pointer">Edit Profile</span>
+        <span className="hover:bg-[#220e0a] text-[#220e0a] border-2 hover:text-white mr-[4rem] px-6 py-2 rounded-[4rem] select-none cursor-pointer transition duration-300">Edit Profile</span>
       </div>
 
       <div className="flex flex-col h-[200px] select-none whitespace-nowrap items-center">
