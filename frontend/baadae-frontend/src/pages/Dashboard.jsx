@@ -1,4 +1,4 @@
-import profPic from "../assets/profpic.png"
+import profPic from "../assets/nopic.png"
 import siteLogo from "../assets/sitelogo.png"
 import Bookmarks from "../components/Bookmarks.jsx"
 import People from "../components/People.jsx"
@@ -17,7 +17,8 @@ import { Link } from "react-router-dom"
 import { AuthContext } from "../contexts/AuthContext.jsx"
 
 function Dashboard() {
-  const { logOutUser } = useContext(AuthContext)
+  const { logOutUser, userCred, userProfile } = useContext(AuthContext)
+
   const [activeComp, setActiveComp] = useState({
     "feed":true,
     "people":false,
@@ -116,12 +117,12 @@ function Dashboard() {
           </div>
 
           <div className="flex h-32 w-full items-center pl-[3rem]">
-            <div className="h-16 w-16 bg-black rounded-full">
-              <img src={ profPic } className="object-cover h-full w-full rounded-full" />
+            <div className="h-16 w-16 bg-black rounded-full bg-white">
+              <img src={ userProfile.photo ? userProfile.photo : profPic  } className="object-cover h-full w-full rounded-full" />
             </div>
 
             <div className="flex  flex-col h-16 font-roboto font-semibold text-xl ml-4">
-              <span className="text-[220e0a] select-none">Athumani</span>
+              <span className="text-[220e0a] select-none">{ userCred.first_name + "  " + userCred.last_name }</span>
               <span className="text-red-700 text-lg text-center cursor-pointer hover:border-b-4 border-[#220e0a]" onClick={ logOutUser }>Log out</span>
             </div>
           </div>
@@ -137,7 +138,7 @@ function Dashboard() {
 
           <div className="flex w-full h-[80px] tablet:hidden">
             <div className="flex h-full w-[40%] items-center pl-5">
-              <img src={ profPic } className="h-[3rem] w-[3rem] object-cover rounded-full cursor-pointer hover:border-2 border-[#220e0a] transition duration-300" onClick={ ()=>setSideBar(true) }/>
+              <img src={ userProfile.photo ? userProfile.photo : profPic  } className="h-[3rem] w-[3rem] object-cover object-center rounded-full cursor-pointer hover:border-2 border-[#220e0a] transition duration-300" onClick={ ()=>setSideBar(true) }/>
             </div>
 
             <div className="flex h-full w-[60%] items-center">

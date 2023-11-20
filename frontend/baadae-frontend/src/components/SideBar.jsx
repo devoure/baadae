@@ -13,7 +13,7 @@ import { BiLogOut } from "react-icons/bi"
 import { AuthContext } from "../contexts/AuthContext.jsx"
 
 function SideBar(){
-  let { logOutUser } = useContext(AuthContext)
+  let { logOutUser, userCred } = useContext(AuthContext)
   return (
     <div className="hidden tablet:flex sticky inset-y-0 left-0 h-screen w-[80px] laptop:w-[300px] border-r border-r-[#baaf98]">
       
@@ -82,7 +82,7 @@ function SideBar(){
             </div>
 
             <div className="flex  flex-col h-16 font-roboto font-semibold text-xl ml-4">
-              <span className="text-[220e0a] select-none">Athumani</span>
+              <span className="text-[220e0a] select-none">{ userCred.first_name + " " + userCred.last_name } </span>
               <span className="text-red-700 text-lg text-center cursor-pointer hover:border-b-4 border-[#220e0a]" onClick={ logOutUser }>Log out</span>
             </div>
           </div>

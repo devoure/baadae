@@ -1,6 +1,7 @@
 import { BiArrowBack } from "react-icons/bi"
-import banner from "../assets/banner.jpg"
-import profPic from "../assets/profpic.png"
+
+import banner from "../assets/nobanner.jpg"
+import profPic from "../assets/nopic.png"
 import { MdEmail } from "react-icons/md"
 import { FaLocationDot } from "react-icons/fa6"
 import { BsFillCalendarEventFill } from "react-icons/bs"
@@ -17,7 +18,7 @@ import { Link } from "react-router-dom"
 import { AuthContext } from "../contexts/AuthContext.jsx"
 
 function ProfileComp(props) {
-  const { user } = useContext(AuthContext)
+  const { user, userProfile, userCred } = useContext(AuthContext)
   const feedsCard = feeds.map((feed)=>{
     return(
       <div className="group w-full h-[400px] mb-4 flex flex-col items-center hover:bg-[#ebebeb] cursor-pointer" key={ feed.id }>
@@ -52,39 +53,39 @@ function ProfileComp(props) {
 
       <div className="w-full h-[200px] flex items-center justify-center">
         <div className="w-[90%] h-[90%] relative">
-          <img src={ banner } className="h-full w-full object-cover"/>
+          <img src={ userProfile.banner ? userProfile.banner : banner } className="h-full w-full object-cover"/>
           <div className="h-20 w-20 bottom-[-2.4rem] left-2 rounded-full absolute bg-white overflow-hidden border-4 border-white">
-            <img src={ profPic } className="h-full w-full object-cover" />
+            <img src={ userProfile.photo ? userProfile.photo : profPic } className="h-full w-full object-cover" />
           </div>
         </div>
       </div>
 
       <div className="flex h-16 font-roboto font-semibold text-white items-center justify-end text-lg">
-        <span className="hover:bg-[#220e0a] text-[#220e0a] border-2 hover:text-white mr-[4rem] px-6 py-2 rounded-[4rem] select-none cursor-pointer transition duration-300">Edit Profile</span>
+        <span className="hover:bg-[#220e0a] text-[#220e0a] border-2 hover:text-white mr-[4rem] px-6 py-2 rounded-[4rem] select-none cursor-pointer transition duration-300" onClick={ props.openEdit }>Edit Profile</span>
       </div>
 
       <div className="flex flex-col h-[200px] select-none whitespace-nowrap items-center">
         <div className="w-[90%] h-max flex flex-col font-roboto">
-          <div className="py-2 text-2xl font-semibold text-[#220e0a]">Athumani Bakari</div>
+          <div className="py-2 text-2xl font-semibold text-[#220e0a]">{ userCred.first_name + " " + userCred.last_name }</div>
           <div className="pt-2 flex w-max items-center cursor-pointer hover:border-b-2 border-[#d6a97d]">
             <MdEmail  className="text-[#220e0a] mr-2 text-2xl"/>
-            <span className="text-[#d6a97d] font-semibold">bakari@baadae.com</span>
+            <span className="text-[#d6a97d] font-semibold">{ userCred.email }</span>
           </div>
         </div>
 
         <div className="pt-2 flex w-[90%] h-max font-roboto text-[#4f352a] font-semibold mb-4">
-          <span>Aesthetics Fanatic here, show some love</span>
+          <span>{ userProfile.bio }</span>
         </div>
 
         <div className="flex w-[90%] h-9 font-roboto items-center px-2">
           <div className="flex h-16 items-center ">
             <FaLocationDot className="text-[#220e0a] text-xl"/>
-            <span className="text-[#4f352a] ml-2">Nairobi</span>
+            <span className="text-[#4f352a] ml-2">{ userProfile.location ? userProfile.location : "N/A" }</span>
           </div>
 
           <div className="flex h-16 p-2 items-center ">
             <BsFillCalendarEventFill className="text-[#220e0a] text-lg"/>
-            <span className="text-[#4f352a] ml-2">Joined August 2017</span>
+            <span className="text-[#4f352a] ml-2">{ "Joined  " + userCred.date_joined.split("T")[0] }</span>
           </div>
         </div>
 
