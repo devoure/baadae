@@ -23,7 +23,7 @@ function Profile() {
         <SideBar />
         <ProfileComp editActive={editActive} openEdit={openEdit}/>
         <TopBookmarks />
-        <div className={ editActive ? "fixed inset-0 bg-[#220e0acc] flex items-center justify-center" : ""  }>
+        <div className={ editActive ? "fixed inset-0 bg-[#220e0acc] flex items-center justify-center" : "hidden"  }>
           <EditProfile closeEdit={closeEdit}/>
         </div>
       </div>
