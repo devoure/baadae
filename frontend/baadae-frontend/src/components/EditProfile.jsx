@@ -68,18 +68,20 @@ function EditProfile(props){
 
       <div className="bg-black w-[95%] h-[30%] relative flex items-center justify-center">
         <div className="w-[120px] h-[50px] flex justify-between">
-          <div className="w-[50px] h-[50px] hover:bg-[#d6dee2] text-white hover:text-[#220e0a] rounded-full flex items-center justify-center cursor-pointer transition duration-300">
+          <label htmlFor="uploadBanner" className="w-[50px] h-[50px] hover:bg-[#d6dee2] text-white hover:text-[#220e0a] rounded-full flex items-center justify-center cursor-pointer transition duration-300">
             <TbCameraPlus className="text-[2rem]"/>
-          </div>
+            <input type="file" className="hidden" id="uploadBanner" value={ editedProf.banner } name="banner" onChange={ handleEditProf }/>
+          </label>
 
           <div className="w-[50px] h-[50px] hover:bg-[#d6dee2] text-white hover:text-[#220e0a] rounded-full flex items-center justify-center cursor-pointer transition duration-300">
              <MdClose className="text-[2rem]"/>          
           </div>
         </div>
         <div className="absolute bg-black w-20 h-20 bottom-[-2.4rem] left-2 rounded-full border-white border-4 flex justify-center items-center">
-          <div className="p-2 hover:bg-[#d6dee2] text-white hover:text-[#220e0a] rounded-full flex items-center justify-center cursor-pointer transition duration-300">
+          <label htmlFor="uploadProf" className="p-2 hover:bg-[#d6dee2] text-white hover:text-[#220e0a] rounded-full flex items-center justify-center cursor-pointer transition duration-300">
             <TbCameraPlus className="text-[1.8rem]"/>
-          </div>
+            <input type="file" className="hidden" id="uploadProf" value={ editedProf.photo } name="photo" onChange={ handleEditProf }/>
+          </label>
         </div>
       </div>
 
