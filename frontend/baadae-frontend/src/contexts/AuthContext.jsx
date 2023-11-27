@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react"
+import { createContext, useState, useEffect, useRef } from "react"
 import jwt_decode from "jwt-decode"
 import { useNavigate } from "react-router-dom"
 
@@ -9,37 +9,50 @@ export default function AuthProvider(props){
   let [user, setUser] = useState(()=> localStorage.getItem('authToken') ? jwt_decode(localStorage.getItem('authToken')) : null)
   let [loading, setLoading] = useState(true)
 
-  let [userCred, setUserCred] = useState({
-    email:"",
-    first_name:"",
-    last_name:"",
-    date_joined:""
-  })
+  let [userCred, setUserCred] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null)
 
-  let [userProfile, setUserProfile] = useState({
-    bio:"",
-    photo:"",
-    location:"",
-    banner:"",
-    id:"",
-    user:"",
-  })
+  let [userProfile, setUserProfile] = useState(()=> localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : null)
 
   let navigate = useNavigate()
 
-  let getUserData = async(id) => {
-    let userCredRes = await fetch(`http://127.0.0.1:8000/api/accounts/v1/users/${id}/`)
+  useEffect(()=>{
+    if (user != null){
+      let res = getUserData()
+
+      console.log(">>>>>", res)
+      setUserCred(res.userData)
+      setUserProfile(res.userProfile)
+    }
+  }, [userCred, userProfile])
+
+  function getUserData(){
+    let userRes 
+    let profRes 
+    fetch(`http:/127.0.0.1:8000/api/accounts/v1/users/${user.id}/`)
+      .then(res => { return res.json() })
+      .then(data => userRes = data)
+    fetch(`http:/127.0.0.1:8000/api/accounts/v1/profiles/${user.id}/`)
+      .then(res => { return res.json() })
+      .then(data => profRes = data)
+
+      return { userRes, profRes}
+
+  }
+
+/*  let getUserData = async() => {
+    let userCredRes = await fetch(`http://127.0.0.1:8000/api/accounts/v1/users/${user.id}/`)
     let userData = await userCredRes.json()
     if (userCredRes.status === 200){
-      setUserCred(userData)
+      localStorage.setItem('userData', JSON.stringify(userData))
     }
 
-    let res = await fetch(`http://127.0.0.1:8000/api/accounts/v1/profiles/${id}/`)
+    let res = await fetch(`http://127.0.0.1:8000/api/accounts/v1/profiles/${user.id}/`)
     let data = await res.json()
     if (res.status === 200){
-      setUserProfile(data)
+      localStorage.setItem('userProfile', JSON.stringify(data))
     }
-  }
+    return { userData, data }
+  }*/
 
   let loginUser = async (e, loginCred) => {
     e.preventDefault()
@@ -57,7 +70,7 @@ export default function AuthProvider(props){
       setAuthToken(data)
       setUser(jwt_decode(data.access))
       localStorage.setItem('authToken', JSON.stringify(data))
-      getUserData(jwt_decode(data.access).user_id)
+//      getUserData(jwt_decode(data.access).user_id)
       navigate("/baadae")
     }else{
       alert("Something went wrong")
@@ -67,7 +80,11 @@ export default function AuthProvider(props){
   let logOutUser = () =>{
     setAuthToken(null)
     setUser(null)
+    setUserCred(null)
+    setUserProfile(null)
     localStorage.removeItem('authToken')
+    localStorage.removeItem('userProfile')
+    localStorage.removeItem('userData')
     navigate("/")
   }
 
