@@ -12,6 +12,28 @@ export default function AuthProvider(props){
 
   let navigate = useNavigate()
 
+  let [userCred, setUserCred] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null)
+
+  let [userProfile, setUserProfile] = useState(()=> localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : null)
+
+  let getUserData = async() => {
+    console.log("Running async")
+    let userCredRes = await fetch(`http://127.0.0.1:8000/api/accounts/v1/users/${user.user_id}/`)
+    let userData = await userCredRes.json()
+    if (userCredRes.status === 200){
+      localStorage.setItem('userData', JSON.stringify(userData))
+      console.log(">>>> 1.", userData)
+      setUserCred(userData)
+      console.log(">>>> 2.", userCred)
+    }
+
+    let res = await fetch(`http://127.0.0.1:8000/api/accounts/v1/profiles/${user.user_id}/`)
+    let data = await res.json()
+    if (res.status === 200){
+      localStorage.setItem('userProfile', JSON.stringify(data))
+      setUserProfile(data)
+    }
+  }
 
   let loginUser = async (e, loginCred) => {
     e.preventDefault()
@@ -29,7 +51,7 @@ export default function AuthProvider(props){
       setAuthToken(data)
       setUser(jwt_decode(data.access))
       localStorage.setItem('authToken', JSON.stringify(data))
-//      getUserData(jwt_decode(data.access).user_id)
+      getUserData(jwt_decode(data.access).user_id)
       navigate("/baadae")
     }else{
       alert("Something went wrong")
@@ -39,7 +61,11 @@ export default function AuthProvider(props){
   let logOutUser = () =>{
     setAuthToken(null)
     setUser(null)
+    setUserProfile(null)
+    setUserCred(null)
     localStorage.removeItem('authToken')
+    localStorage.removeItem('userCred')
+    localStorage.removeItem('userProfile')
     navigate("/")
   }
 
@@ -88,6 +114,8 @@ export default function AuthProvider(props){
 
   let contextData = {
     user: user,
+    userCred: userCred,
+    userProfile: userProfile,
     authToken: authToken,
     loginUser: loginUser,
     logOutUser: logOutUser,

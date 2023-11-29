@@ -19,9 +19,9 @@ import { AuthContext } from "../contexts/AuthContext.jsx"
 function Dashboard() {
   const { logOutUser, user } = useContext(AuthContext)
   
-  let [userCred, setUserCred] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null)
+/*  let [userCred, setUserCred] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null)
 
-  let [userProfile, setUserProfile] = useState(()=> localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : null)
+  let [userProfile, setUserProfile] = useState(()=> localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : null) */
 
   const [activeComp, setActiveComp] = useState({
     "feed":true,
@@ -29,7 +29,7 @@ function Dashboard() {
     "bookmarks":false
   })
 
-  let getUserData = async() => {
+/*  let getUserData = async() => {
     console.log("Running async")
     let userCredRes = await fetch(`http://127.0.0.1:8000/api/accounts/v1/users/${user.user_id}/`)
     let userData = await userCredRes.json()
@@ -51,7 +51,7 @@ function Dashboard() {
   useEffect(()=>{
     console.log("Runned useEffect")
     getUserData()
-  }, [])
+  }, []) */
 
   const [sideBar, setSideBar] = useState(false)
 
