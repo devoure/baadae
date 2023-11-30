@@ -79,11 +79,11 @@ function SideBar(){
 
           <div className="hidden laptop:flex h-32 w-full items-center">
             <div className="h-16 w-16 bg-white rounded-full">
-              <img src={ profPic } className="object-cover h-full w-full rounded-full" />
+              <img src={ userProfile && userProfile.photo ? userProfile.photo : profPic  } className="object-cover h-full w-full rounded-full" />
             </div>
 
             <div className="flex  flex-col h-16 font-roboto font-semibold text-xl ml-4">
-              <span className="text-[220e0a] select-none">{ "G" } </span>
+              <span className="text-[220e0a] select-none">{ userCred && userCred.first_name + " " + userCred.last_name } </span>
               <span className="text-red-700 text-lg text-center cursor-pointer hover:border-b-4 border-[#220e0a]" onClick={ logOutUser }>Log out</span>
             </div>
           </div>

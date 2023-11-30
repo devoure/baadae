@@ -16,18 +16,15 @@ export default function AuthProvider(props){
 
   let [userProfile, setUserProfile] = useState(()=> localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : null)
 
-  let getUserData = async() => {
-    console.log("Running async")
-    let userCredRes = await fetch(`http://127.0.0.1:8000/api/accounts/v1/users/${user.user_id}/`)
+  let getUserData = async(id) => {
+    let userCredRes = await fetch(`http://127.0.0.1:8000/api/accounts/v1/users/${id}/`)
     let userData = await userCredRes.json()
     if (userCredRes.status === 200){
       localStorage.setItem('userData', JSON.stringify(userData))
-      console.log(">>>> 1.", userData)
       setUserCred(userData)
-      console.log(">>>> 2.", userCred)
     }
 
-    let res = await fetch(`http://127.0.0.1:8000/api/accounts/v1/profiles/${user.user_id}/`)
+    let res = await fetch(`http://127.0.0.1:8000/api/accounts/v1/profiles/${id}/`)
     let data = await res.json()
     if (res.status === 200){
       localStorage.setItem('userProfile', JSON.stringify(data))

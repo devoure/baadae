@@ -11,47 +11,20 @@ import { AiFillBell } from "react-icons/ai"
 import { BsBookmarkFill } from "react-icons/bs"
 import { BiSolidUser } from "react-icons/bi"
 
-import { useState, useContext, useEffect } from "react"
+import { useState, useContext } from "react"
 import { Link } from "react-router-dom"
 
 import { AuthContext } from "../contexts/AuthContext.jsx"
 
 function Dashboard() {
-  const { logOutUser, user } = useContext(AuthContext)
+  const { logOutUser, user, userProfile, userCred } = useContext(AuthContext)
   
-/*  let [userCred, setUserCred] = useState(()=> localStorage.getItem('userData') ? JSON.parse(localStorage.getItem('userData')) : null)
-
-  let [userProfile, setUserProfile] = useState(()=> localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : null) */
 
   const [activeComp, setActiveComp] = useState({
     "feed":true,
     "people":false,
     "bookmarks":false
   })
-
-/*  let getUserData = async() => {
-    console.log("Running async")
-    let userCredRes = await fetch(`http://127.0.0.1:8000/api/accounts/v1/users/${user.user_id}/`)
-    let userData = await userCredRes.json()
-    if (userCredRes.status === 200){
-      localStorage.setItem('userData', JSON.stringify(userData))
-      console.log(">>>> 1.", userData)
-      setUserCred(userData)
-      console.log(">>>> 2.", userCred)
-    }
-
-    let res = await fetch(`http://127.0.0.1:8000/api/accounts/v1/profiles/${user.user_id}/`)
-    let data = await res.json()
-    if (res.status === 200){
-      localStorage.setItem('userProfile', JSON.stringify(data))
-      setUserProfile(data)
-    }
-  }
-
-  useEffect(()=>{
-    console.log("Runned useEffect")
-    getUserData()
-  }, []) */
 
   const [sideBar, setSideBar] = useState(false)
 
@@ -146,7 +119,7 @@ function Dashboard() {
 
           <div className="flex h-32 w-full items-center pl-[3rem]">
             <div className="h-16 w-16 bg-black rounded-full bg-white">
-              <img src={ profPic  } className="object-cover h-full w-full rounded-full" />
+              <img src={ userProfile && userProfile.photo ? userProfile.photo : profPic } className="object-cover h-full w-full rounded-full" />
             </div>
 
             <div className="flex  flex-col h-16 font-roboto font-semibold text-xl ml-4">
@@ -166,7 +139,7 @@ function Dashboard() {
 
           <div className="flex w-full h-[80px] tablet:hidden">
             <div className="flex h-full w-[40%] items-center pl-5">
-              <img src={ profPic  } className="h-[3rem] w-[3rem] object-cover object-center rounded-full cursor-pointer hover:border-2 border-[#220e0a] transition duration-300" onClick={ ()=>setSideBar(true) }/>
+              <img src={ userProfile && userProfile.photo ? userProfile.photo : profPic  } className="h-[3rem] w-[3rem] object-cover object-center rounded-full cursor-pointer hover:border-2 border-[#220e0a] transition duration-300" onClick={ ()=>setSideBar(true) }/>
             </div>
 
             <div className="flex h-full w-[60%] items-center">
