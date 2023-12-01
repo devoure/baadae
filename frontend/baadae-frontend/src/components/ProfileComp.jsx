@@ -53,9 +53,9 @@ function ProfileComp(props) {
 
       <div className="w-full h-[200px] flex items-center justify-center">
         <div className="w-[90%] h-[90%] relative">
-          <img src={ userProfile.banner ? userProfile.banner : banner } className="h-full w-full object-cover"/>
+          <img src={ userProfile && userProfile.banner ? userProfile.banner : banner } className="h-full w-full object-cover"/>
           <div className="h-20 w-20 bottom-[-2.4rem] left-2 rounded-full absolute bg-white overflow-hidden border-4 border-white">
-            <img src={ userProfile.photo ? userProfile.photo : profPic } className="h-full w-full object-cover" />
+            <img src={ userProfile && userProfile.photo ? userProfile.photo : profPic } className="h-full w-full object-cover" />
           </div>
         </div>
       </div>
@@ -66,26 +66,26 @@ function ProfileComp(props) {
 
       <div className="flex flex-col h-[200px] select-none whitespace-nowrap items-center">
         <div className="w-[90%] h-max flex flex-col font-roboto">
-          <div className="py-2 text-2xl font-semibold text-[#220e0a]">{ userCred.first_name + " " + userCred.last_name }</div>
+          <div className="py-2 text-2xl font-semibold text-[#220e0a]">{ userCred && userCred.first_name + " " + userCred.last_name }</div>
           <div className="pt-2 flex w-max items-center cursor-pointer hover:border-b-2 border-[#d6a97d]">
             <MdEmail  className="text-[#220e0a] mr-2 text-2xl"/>
-            <span className="text-[#d6a97d] font-semibold">{ userCred.email }</span>
+            <span className="text-[#d6a97d] font-semibold">{ userCred && userCred.email }</span>
           </div>
         </div>
 
         <div className="pt-2 flex w-[90%] h-max font-roboto text-[#4f352a] font-semibold mb-4">
-          <span>{ userProfile.bio }</span>
+          <span>{ userProfile && userProfile.bio }</span>
         </div>
 
         <div className="flex w-[90%] h-9 font-roboto items-center px-2">
           <div className="flex h-16 items-center ">
             <FaLocationDot className="text-[#220e0a] text-xl"/>
-            <span className="text-[#4f352a] ml-2">{ userProfile.location ? userProfile.location : "N/A" }</span>
+            <span className="text-[#4f352a] ml-2">{ userProfile && userProfile.location ? userProfile.location : "N/A" }</span>
           </div>
 
           <div className="flex h-16 p-2 items-center ">
             <BsFillCalendarEventFill className="text-[#220e0a] text-lg"/>
-            <span className="text-[#4f352a] ml-2">{ "Joined  " + userCred.date_joined.split("T")[0] }</span>
+            <span className="text-[#4f352a] ml-2">{ "Joined  " + userCred && userCred.date_joined.split("T")[0] }</span>
           </div>
         </div>
 
