@@ -1,8 +1,8 @@
 import { useContext, useState } from "react"
 
-import banner from "../assets/nobanner.jpg"
+import noBanner from "../assets/nobanner.jpg"
 
-import profPic from "../assets/nopic.png"
+import noProfPic from "../assets/nopic.png"
 
 import { MdClose } from "react-icons/md"
 import { TbCameraPlus } from "react-icons/tb";
@@ -12,20 +12,15 @@ import { AuthContext } from "../contexts/AuthContext.jsx"
 
 function EditProfile(props){
 
-  let { userProfile, userCred } = useContext(AuthContext)
+  let { userProfile, userCred, getUserData, user, hostUrl } = useContext(AuthContext)
 
   const [editedProf, setEditedProf] = useState(userProfile)
   const [editedUser, setEditedUser] = useState(userCred)
 
-  const [changes, setChanges] = useState({})
+  const [photo, setPhoto] = useState(false)
+  const [banner, setBanner] = useState(false)
 
-  function handleEditProf(e){
-    setEditedProf((prev)=>{
-      return(
-        {...prev, [e.target.name]:e.target.value}
-      )
-    })
-  }
+  let profChanges = new FormData()
 
   function handleEditUser(e){
     setEditedUser((prev)=>{
@@ -35,27 +30,65 @@ function EditProfile(props){
     })
   }
 
-  function saveChanges(){
-    setChanges({
-      profile:{
-        bio:editedProf.bio,
-        photo:editedProf.photo,
-        banner:editedProf.banner,
-        location:editedProf.location
-      },
-      user:{
-        first_name:editedUser.first_name,
-        last_name:editedUser.last_name
-      }
+  function handlePhoto(e){
+    setPhoto(e.target.files[0])
+  }
+
+  function handleBanner(e){
+    setBanner(e.target.files[0])
+  }
+
+  function handleEditProf(e){
+    setEditedProf((prev)=>{
+      return(
+        {...prev, [e.target.name]:e.target.value}
+      )
     })
-    console.log(changes)
+  }
+
+
+  let editProfile = async(id) => {
+    let res = await fetch(`http://127.0.0.1:8000/api/accounts/v1/profiles/edit/${id}/`,{
+      method:'POST',
+      //headers:{
+      //  'Content-Type':'multipart/form-data'
+      //},
+      body: profChanges
+    })
+
+    let updates = await res.json()
+    if (res.status === 200){
+      getUserData(id)
+      alert("Profile Updated Successfully !")
+    }else{
+      alert("Profile Update Failed")
+    }
+  }
+
+  function saveChanges(){
+    profChanges.append('bio', editedProf.bio)
+    photo && profChanges.append('photo', photo)
+    banner && profChanges.append('banner', banner)
+    profChanges.append('location', editedProf.location)
+    profChanges.append('first_name', editedUser.first_name)
+    profChanges.append('last_name', editedUser.last_name)
+
+
+    console.log(">>", profChanges)
+    editProfile(user.user_id)
   }
 
   return (
     <div className="min-w-[350px] h-[550px] tablet:min-w-[450px] laptop:min-w-[450px] desktop:min-w-[550px] desktop:min-h-[700px] min-h-[550px] tablet:min-h-[700px] laptop:min-h-[550px] bg-white rounded-[2rem] shadow-sm flex flex-col items-center justify-between overflow-hidden font-roboto">
       <div className="w-full h-[10%] flex items-center justify-between">
         <div className="flex items-center">
-          <div className="w-[32px] h-[32px] bg-white rounded-full ml-4 hover:bg-[#d6dee2] cursor-pointer flex items-center justify-center transition duration-300" onClick={ props.closeEdit }>
+          <div className="w-[32px] h-[32px] bg-white rounded-full ml-4 hover:bg-[#d6dee2] cursor-pointer flex items-center justify-center transition duration-300" onClick={ ()=>{
+            setEditedProf(userProfile)
+            setEditedUser(userCred)
+            setBanner(false)
+            setPhoto(false)
+            props.closeEdit()
+            } }>
             <MdClose className="text-2xl text-[#220e0a]"/>
           </div>
 
@@ -71,11 +104,11 @@ function EditProfile(props){
       </div>
 
       <div className={ "w-[95%] h-[30%] relative flex items-center justify-center "}>
-        <img src={ banner }  className="object-center object-cover w-full h-full"/>
+        <img src={ userProfile && userProfile.banner ? hostUrl + userProfile.banner : noBanner }  className="object-center object-cover w-full h-full"/>
         <div className="w-[120px] h-[50px] flex justify-between absolute">
           <label htmlFor="uploadBanner" className="w-[50px] h-[50px] hover:bg-[#d6dee2] text-white hover:text-[#220e0a] rounded-full flex items-center justify-center cursor-pointer transition duration-300 bg-[#969898]">
             <TbCameraPlus className="text-[2rem]"/>
-            <input type="file" className="hidden" id="uploadBanner" value={ editedProf.banner } name="banner" onChange={ handleEditProf }/>
+            <input type="file" className="hidden" id="uploadBanner" name="banner" onChange={ handleBanner }/>
           </label>
 
           <div className="w-[50px] h-[50px] hover:bg-[#d6dee2] text-white hover:text-[#220e0a] rounded-full flex items-center justify-center cursor-pointer transition duration-300 bg-[#969898]">
@@ -83,10 +116,10 @@ function EditProfile(props){
           </div>
         </div>
         <div className="absolute w-20 h-20 bottom-[-2.4rem] left-2 rounded-full border-white border-4 flex justify-center items-center overflow-hidden">
-          <img src={ profPic } className="w-full h-full object-center object-cover"/>
+          <img src={  userProfile && userProfile.photo ? hostUrl + userProfile.photo : noProfPic  } className="w-full h-full object-center object-cover"/>
           <label htmlFor="uploadProf" className="p-2 hover:bg-[#d6dee2] text-white hover:text-[#220e0a] rounded-full flex items-center justify-center cursor-pointer transition duration-300 bg-[#969898] absolute">
             <TbCameraPlus className="text-[1.8rem]"/>
-            <input type="file" className="hidden" id="uploadProf" value={ editedProf.photo } name="photo" onChange={ handleEditProf }/>
+            <input type="file" className="hidden" id="uploadProf" name="photo" onChange={ handlePhoto }/>
           </label>
         </div>
       </div>
@@ -108,7 +141,7 @@ function EditProfile(props){
 
       <div className="w-[95%] h-[3.4rem] border-2 border-[#d6dee2] mb-5 rounded-sm flex flex-col justify-between">
         <span className="text-xs font-semibold text-[#888c8c] ml-4 block ">Location</span>
-        <input type="text" className="flex h-[2.4rem] w-full border-0 pl-2"  value={ editedProf.location } name="first_name" placeholder={ editedProf.location } onChange={ handleEditProf } />
+        <input type="text" className="flex h-[2.4rem] w-full border-0 pl-2"  value={ editedProf.location } name="location" placeholder={ editedProf.location } onChange={ handleEditProf } />
       </div>
 
     </div>

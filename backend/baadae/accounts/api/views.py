@@ -7,6 +7,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .serializers import UserSerializers
 from .serializers import ProfileSerializers
+from .serializers import ProfileUpdateSerializers
 from .serializers import UserUpdateSerializers
 
 from accounts.models import Profile
@@ -35,7 +36,7 @@ def add_user(request):
     if new_user.is_valid():
         new_user.save()
         return Response("OK")
-    return Response("ERROR")
+    return Response("ERROR") 
 
 
 @api_view(['GET'])
@@ -61,14 +62,14 @@ def get_user(request, pk):
 
 
 @api_view(['POST'])
-def update_profile(request, pk): 
+def update_profile(request, pk):
     user = User.objects.get(id=pk)
     profile = Profile.objects.get(user=user)
-    updated_profile = ProfileSerializers(instance=profile,
-                                         data=request.data["profile"],
-                                         partial=True)
+    updated_profile = ProfileUpdateSerializers(instance=profile,
+                                               data=request.data,
+                                               partial=True)
     updated_user = UserUpdateSerializers(instance=user,
-                                         data=request.data["user"],
+                                         data=request.data,
                                          partial=True)
 
     res = "ERROR"

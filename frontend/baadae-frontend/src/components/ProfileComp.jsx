@@ -18,7 +18,7 @@ import { Link } from "react-router-dom"
 import { AuthContext } from "../contexts/AuthContext.jsx"
 
 function ProfileComp(props) {
-  const { user, userProfile, userCred } = useContext(AuthContext)
+  const { user, userProfile, userCred, hostUrl } = useContext(AuthContext)
   const feedsCard = feeds.map((feed)=>{
     return(
       <div className="group w-full h-[400px] mb-4 flex flex-col items-center hover:bg-[#ebebeb] cursor-pointer" key={ feed.id }>
@@ -53,9 +53,9 @@ function ProfileComp(props) {
 
       <div className="w-full h-[200px] flex items-center justify-center">
         <div className="w-[90%] h-[90%] relative">
-          <img src={ userProfile && userProfile.banner ? userProfile.banner : banner } className="h-full w-full object-cover"/>
+          <img src={ userProfile && userProfile.banner ? hostUrl + userProfile.banner : banner } className="h-full w-full object-cover"/>
           <div className="h-20 w-20 bottom-[-2.4rem] left-2 rounded-full absolute bg-white overflow-hidden border-4 border-white">
-            <img src={ userProfile && userProfile.photo ? userProfile.photo : profPic } className="h-full w-full object-cover" />
+            <img src={ userProfile && userProfile.photo ? hostUrl + userProfile.photo : profPic } className="h-full w-full object-cover" />
           </div>
         </div>
       </div>

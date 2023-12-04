@@ -113,10 +113,12 @@ export default function AuthProvider(props){
     user: user,
     userCred: userCred,
     userProfile: userProfile,
+    getUserData: getUserData,
     authToken: authToken,
     loginUser: loginUser,
     logOutUser: logOutUser,
-    createAccount: createAccount
+    createAccount: createAccount,
+    hostUrl: 'http://localhost:8000'
   }
 
   useEffect(()=>{
