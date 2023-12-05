@@ -5,6 +5,7 @@ import People from "../components/People.jsx"
 import Feed from "../components/Feed.jsx"
 import SideBar from "../components/SideBar.jsx"
 import TopBookmarks from "../components/TopBookmarks.jsx"
+import AddBookmark from "../components/AddBookmark.jsx"
 
 import { IoMdArrowRoundBack } from "react-icons/io"
 import { AiFillBell } from "react-icons/ai"
@@ -17,7 +18,7 @@ import { Link } from "react-router-dom"
 import { AuthContext } from "../contexts/AuthContext.jsx"
 
 function Dashboard() {
-  const { logOutUser, user, userProfile, userCred } = useContext(AuthContext)
+  const { logOutUser, user, userProfile, userCred, hostUrl } = useContext(AuthContext)
   
 
   const [activeComp, setActiveComp] = useState({
@@ -27,6 +28,14 @@ function Dashboard() {
   })
 
   const [sideBar, setSideBar] = useState(false)
+
+  const [showBookmark, setShowBookmark] = useState(true)
+
+  function addBookmarkComp(){
+    setShowBookmark((prev)=>{
+      return ( !prev )
+    })
+  }
 
   function setActive(e){
     const value = e.target.id
@@ -54,8 +63,9 @@ function Dashboard() {
   }
 
   return (
-    <div className="w-screen h-max">
-      <div className="w-full h-full relative flex tablet:justify-center tablet:items-start">
+    <div className="w-screen h-max relative">
+      { showBookmark &&  <AddBookmark addBookmarkComp={ addBookmarkComp }/> }
+      <div className={ showBookmark ? "blur-sm" : "w-full h-full relative flex tablet:justify-center tablet:items-start z-10" }>
         <SideBar />
 
         <div className={ sideBar ? "fixed z-50 inset-y-0 left-0 w-80 bg-white tablet:hidden flex flex-col justify-between overflow-hidden border-r-2 border-[#220e0a] pr-2 transition-all duration-500" : "fixed z-10 inset-y-0 left-0 w-0 bg-white tablet:hidden flex flex-col justify-between overflow-hidden transition-all duration-500" }>
@@ -114,16 +124,16 @@ function Dashboard() {
           </div>
           
           <div className="flex h-16 w-full items-center justify-center mt-[-80px]">
-            <span className="font-semibold font-roboto text-xl bg-[#220e0a] text-[#d6a97d] p-2 px-8 rounded-3xl cursor-pointer">Bookmark</span>
+            <span className="font-semibold font-roboto text-xl bg-[#220e0a] text-[#d6a97d] p-2 px-8 rounded-3xl cursor-pointer" onClick={ addBookmarkComp } >Bookmark</span>
           </div>
 
           <div className="flex h-32 w-full items-center pl-[3rem]">
             <div className="h-16 w-16 bg-black rounded-full bg-white">
-              <img src={ userProfile && userProfile.photo ? userProfile.photo : profPic } className="object-cover h-full w-full rounded-full" />
+              <img src={ userProfile && userProfile.photo ? hostUrl + userProfile.photo : profPic } className="object-cover h-full w-full rounded-full" />
             </div>
 
             <div className="flex  flex-col h-16 font-roboto font-semibold text-xl ml-4">
-              <span className="text-[220e0a] select-none">{ "G" }</span>
+              <span className="text-[220e0a] select-none">{ userCred && userCred.first_name + " " + userCred.last_name }</span>
               <span className="text-red-700 text-lg text-center cursor-pointer hover:border-b-4 border-[#220e0a]" onClick={ logOutUser }>Log out</span>
             </div>
           </div>
@@ -139,7 +149,7 @@ function Dashboard() {
 
           <div className="flex w-full h-[80px] tablet:hidden">
             <div className="flex h-full w-[40%] items-center pl-5">
-              <img src={ userProfile && userProfile.photo ? userProfile.photo : profPic  } className="h-[3rem] w-[3rem] object-cover object-center rounded-full cursor-pointer hover:border-2 border-[#220e0a] transition duration-300" onClick={ ()=>setSideBar(true) }/>
+              <img src={ userProfile && userProfile.photo ? hostUrl + userProfile.photo : profPic  } className="h-[3rem] w-[3rem] object-cover object-center rounded-full cursor-pointer hover:border-2 border-[#220e0a] transition duration-300" onClick={ ()=>setSideBar(true) }/>
             </div>
 
             <div className="flex h-full w-[60%] items-center">

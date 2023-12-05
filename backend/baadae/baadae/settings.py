@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     "accounts.apps.AccountsConfig",
+    "bookmarks.apps.BookmarksConfig",
 
     "rest_framework",
     "corsheaders",

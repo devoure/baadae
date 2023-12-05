@@ -14,7 +14,8 @@ import { BiLogOut } from "react-icons/bi"
 import { AuthContext } from "../contexts/AuthContext.jsx"
 
 function SideBar(){
-  let { logOutUser, userCred, userProfile } = useContext(AuthContext)
+
+  let { logOutUser, userCred, userProfile, hostUrl } = useContext(AuthContext)
   return (
     <div className="hidden tablet:flex sticky inset-y-0 left-0 h-screen w-[80px] laptop:w-[300px] border-r border-r-[#baaf98]">
       
@@ -79,7 +80,7 @@ function SideBar(){
 
           <div className="hidden laptop:flex h-32 w-full items-center">
             <div className="h-16 w-16 bg-white rounded-full">
-              <img src={ userProfile && userProfile.photo ? userProfile.photo : profPic  } className="object-cover h-full w-full rounded-full" />
+              <img src={ userProfile && userProfile.photo ? hostUrl + userProfile.photo : profPic  } className="object-cover h-full w-full rounded-full" />
             </div>
 
             <div className="flex  flex-col h-16 font-roboto font-semibold text-xl ml-4">
