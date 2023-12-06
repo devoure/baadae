@@ -29,7 +29,7 @@ function Dashboard() {
 
   const [sideBar, setSideBar] = useState(false)
 
-  const [showBookmark, setShowBookmark] = useState(true)
+  const [showBookmark, setShowBookmark] = useState(false)
 
   function addBookmarkComp(){
     setShowBookmark((prev)=>{
