@@ -6,6 +6,7 @@ import Feed from "../components/Feed.jsx"
 import SideBar from "../components/SideBar.jsx"
 import TopBookmarks from "../components/TopBookmarks.jsx"
 import AddBookmark from "../components/AddBookmark.jsx"
+import AddBookmark2 from "../components/AddBookmark2.jsx"
 
 import { IoMdArrowRoundBack } from "react-icons/io"
 import { AiFillBell } from "react-icons/ai"
@@ -30,9 +31,16 @@ function Dashboard() {
   const [sideBar, setSideBar] = useState(false)
 
   const [showBookmark, setShowBookmark] = useState(false)
+  const [showOtherBookmark, setShowOtherBookmark] = useState(false)
 
   function addBookmarkComp(){
     setShowBookmark((prev)=>{
+      return ( !prev )
+    })
+  }
+
+  function addBookComp(){
+    setShowOtherBookmark((prev)=>{
       return ( !prev )
     })
   }
@@ -65,8 +73,9 @@ function Dashboard() {
   return (
     <div className="w-screen h-max relative">
       { showBookmark &&  <AddBookmark addBookmarkComp={ addBookmarkComp }/> }
-      <div className={ showBookmark ? "blur-sm" : "w-full h-full relative flex tablet:justify-center tablet:items-start z-10" }>
-        <SideBar />
+      { showOtherBookmark && <AddBookmark2 addBookComp={ addBookComp } /> }
+      <div className={ (showBookmark || showOtherBookmark) ? "blur-sm w-full h-full relative flex tablet:justify-center tablet:items-start z-10" : "w-full h-full relative flex tablet:justify-center tablet:items-start z-10" }>
+        <SideBar addBookComp={ addBookComp }/>
 
         <div className={ sideBar ? "fixed z-50 inset-y-0 left-0 w-80 bg-white tablet:hidden flex flex-col justify-between overflow-hidden border-r-2 border-[#220e0a] pr-2 transition-all duration-500" : "fixed z-10 inset-y-0 left-0 w-0 bg-white tablet:hidden flex flex-col justify-between overflow-hidden transition-all duration-500" }>
 

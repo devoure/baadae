@@ -2,7 +2,7 @@ import siteLogo from "../assets/sitelogo.png"
 
 import profPic from "../assets/nopic.png"
 
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 
 import { Link } from "react-router-dom"
 
@@ -13,9 +13,10 @@ import { BiLogOut } from "react-icons/bi"
 
 import { AuthContext } from "../contexts/AuthContext.jsx"
 
-function SideBar(){
+function SideBar(props){
 
   let { logOutUser, userCred, userProfile, hostUrl } = useContext(AuthContext)
+  let [other, setOther] = useState(false)
   return (
     <div className="hidden tablet:flex sticky inset-y-0 left-0 h-screen w-[80px] laptop:w-[300px] border-r border-r-[#baaf98]">
       
@@ -67,7 +68,7 @@ function SideBar(){
                 <BsBookmarkFill className="text-3xl text-[#220e0a]"/>
           </div>
           <div className="flex h-16 w-full items-center justify-center laptop:block hidden">
-            <span className="font-semibold font-roboto text-xl bg-[#220e0a] text-[#d6a97d] p-2 laptop:py-3 px-8 rounded-3xl cursor-pointer">Bookmark</span>
+            <span className="font-semibold font-roboto text-xl bg-[#220e0a] text-[#d6a97d] p-2 laptop:py-3 px-8 rounded-3xl cursor-pointer" onClick = { props.addBookComp }>Bookmark</span>
           </div>
 
         </div>
