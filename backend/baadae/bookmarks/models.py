@@ -13,13 +13,13 @@ class Bookmark(models.Model):
                                         related_name='images_liked',
                                         blank=True)
     title = models.CharField(max_length=200)
-    url = models.URLField()
+    url = models.URLField(blank=True)
     slug = models.SlugField(max_length=200,
                             blank=True)
     image = models.ImageField(upload_to='images/%Y/%m/%d')
     desc = models.TextField(blank=True)
-    created = models.DateField(auto_now_add=True,
-                               db_index=True)
+    created = models.DateTimeField(auto_now_add=True,
+                                   db_index=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:

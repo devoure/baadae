@@ -8,7 +8,10 @@ import { AuthContext } from "../contexts/AuthContext.jsx"
 
 
 function AddBookmark2(props){
-  let { userProfile, hostUrl } = useContext(AuthContext)
+  let { userProfile, hostUrl, user } = useContext(AuthContext)
+
+  let newBookmark = new FormData()
+
   const [photo, setPhoto] = useState(false)
   const [bookmarkDet, setBookmarkDet] = useState({
     title:"",
@@ -30,6 +33,37 @@ function AddBookmark2(props){
         {...prev, [e.target.name]:e.target.value }
       )
     })
+  }
+
+  let addBookmark = async(id) => {
+    let res = await fetch(`http://127.0.0.1:8000/api/bookmarks/v1/add/${id}/`, {
+      method:'POST',
+      body: newBookmark
+    })
+
+    let data = await res.json()
+    console.log(".>>>", data)
+
+    if (res.status === 200){
+      alert("Bookmark Added Successfully !")
+    }else{
+      alert("Process Failed")
+    }
+  }
+
+  function saveChanges(){
+    newBookmark.append('image', photo)
+    newBookmark.append('title', bookmarkDet.title)
+    newBookmark.append('desc', bookmarkDet.desc)
+
+    addBookmark(user.user_id)
+
+    setPhoto(false)
+    setBookmarkDet( {
+    title:"",
+    desc:""
+  })
+
   }
 
   return (
@@ -81,7 +115,7 @@ function AddBookmark2(props){
         </div>
 
         <div className="w-full h-[4rem] font-roboto font-semibold text-xl text-white px-5 flex justify-end">
-          <span className={ (photo && bookmarkDet.title != "" && bookmarkDet.desc != "") ? "h-[3rem] px-5 py-3 bg-[#220e0a] rounded-[1.3rem] cursor-pointer" : "h-[3rem] px-5 py-3 bg-[#220e0a] rounded-[1.3rem] select-none pointer-events-none opacity-60" } onClick={ ()=>{console.log("Heyooo")}}>Post</span>
+          <span className={ (photo && bookmarkDet.title != "" && bookmarkDet.desc != "") ? "h-[3rem] px-5 py-3 bg-[#220e0a] rounded-[1.3rem] cursor-pointer" : "h-[3rem] px-5 py-3 bg-[#220e0a] rounded-[1.3rem] select-none pointer-events-none opacity-60" } onClick={ saveChanges }>Post</span>
         </div>
 
       </div>
