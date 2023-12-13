@@ -46,6 +46,8 @@ function AddBookmark2(props){
 
     if (res.status === 200){
       alert("Bookmark Added Successfully !")
+      props.getBookmarks(id)
+      
     }else{
       alert("Process Failed")
     }

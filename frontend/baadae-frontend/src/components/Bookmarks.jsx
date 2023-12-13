@@ -4,31 +4,19 @@ import { AiFillEye } from "react-icons/ai"
 import noPic from "../assets/nopic.png"
 
 import { Link } from "react-router-dom"
-import { useEffect, useState, useContext } from "react"
+import { useContext } from "react"
 import { AuthContext } from "../contexts/AuthContext.jsx"
 import TimeAgo from "react-timeago"
 
 
-function Bookmarks(){
-  let { user, userProfile, hostUrl, userCred } = useContext(AuthContext)
-  const [bookmarks, setBookmarks] = useState([])
-  let getBookmarks = async (id)=> {
-    let res = await fetch(`http://127.0.0.1:8000/api/bookmarks/v1/get/${id}/`) 
-    let data = await res.json()
-    if ( res.status === 200 ){
-      setBookmarks(data)
-    }
-    console.log(data)
-  }
-  useEffect(()=>{
-    getBookmarks(user.user_id)
-  }, [])
+function Bookmarks(props){
+  let { userProfile, hostUrl, userCred } = useContext(AuthContext)
   function getBookmarkDate(d){
     const date = new Date(d)
     return <TimeAgo date={date} locale="en" className=""/>
   }
 
-  const bookmarksCard = bookmarks.map((bookmark)=>{
+  const bookmarksCard = props.bookmarks.map((bookmark)=>{
     return(
       <Link to={`/bookmarks/${bookmark.id}`} state={ bookmark } className="group flex flex-col justify-between items-end w-full min-h-[420px] mb-10 hover:bg-[#fafafa] cursor-pointer pt-5 tablet:min-h-[430px]" key={ bookmark.id }>
         <div className="flex items-start h-16 w-full px-5 select-none ">
@@ -58,7 +46,7 @@ function Bookmarks(){
     )
   })
   return (
-    <div className="flex flex-col min-w-[375px] pt-[130px] tablet:min-w-[600px]">
+    <div className="flex flex-col min-w-[375px] pt-[130px] tablet:w-[600px]">
       { bookmarksCard }
     </div>
   )

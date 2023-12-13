@@ -13,7 +13,7 @@ import { AiFillBell } from "react-icons/ai"
 import { BsBookmarkFill } from "react-icons/bs"
 import { BiSolidUser } from "react-icons/bi"
 
-import { useState, useContext } from "react"
+import { useState, useContext, useEffect } from "react"
 import { Link } from "react-router-dom"
 
 import { AuthContext } from "../contexts/AuthContext.jsx"
@@ -70,12 +70,25 @@ function Dashboard() {
     }
   }
 
+  const [bookmarks, setBookmarks] = useState([])
+  let getBookmarks = async (id)=> {
+    let res = await fetch(`http://127.0.0.1:8000/api/bookmarks/v1/get/${id}/`) 
+    let data = await res.json()
+    if ( res.status === 200 ){
+      setBookmarks(data)
+    }
+    console.log(data)
+  }
+  useEffect(()=>{
+    getBookmarks(user.user_id)
+  }, [])
+
   return (
     <div className="w-screen h-max relative">
       { showBookmark &&  <AddBookmark addBookmarkComp={ addBookmarkComp }/> }
-      { showOtherBookmark && <AddBookmark2 addBookComp={ addBookComp } /> }
+      { showOtherBookmark && <AddBookmark2 addBookComp={ addBookComp } getBookmarks= { getBookmarks }/> }
       <div className={ (showBookmark || showOtherBookmark) ? "blur-sm w-full h-full relative flex tablet:justify-center tablet:items-start z-10" : "w-full h-full relative flex tablet:justify-center tablet:items-start z-10" }>
-        <SideBar addBookComp={ addBookComp }/>
+        <SideBar addBookComp={ addBookComp } />
 
         <div className={ sideBar ? "fixed z-50 inset-y-0 left-0 w-80 bg-white tablet:hidden flex flex-col justify-between overflow-hidden border-r-2 border-[#220e0a] pr-2 transition-all duration-500" : "fixed z-10 inset-y-0 left-0 w-0 bg-white tablet:hidden flex flex-col justify-between overflow-hidden transition-all duration-500" }>
 
@@ -178,7 +191,7 @@ function Dashboard() {
 
         { activeComp.feed && <Feed /> }
         { activeComp.people && <People /> }
-        { activeComp.bookmarks && <Bookmarks /> }
+        { activeComp.bookmarks && <Bookmarks bookmarks = { bookmarks }/> }
       </div>
 
       <TopBookmarks />
