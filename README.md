@@ -19,6 +19,8 @@
   1. Account Changes
   1. User Profiles
   1. Match up
+  1. Add Bookmark
+  1. Like and Unike
 
 
 > ## Frontend
