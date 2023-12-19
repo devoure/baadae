@@ -18,7 +18,7 @@ function Bookmarks(props){
 
   const bookmarksCard = props.bookmarks.map((bookmark)=>{
     return(
-      <Link to={`/bookmarks/${bookmark.id}`} state={ bookmark } className="group flex flex-col justify-between items-end w-full min-h-[420px] mb-10 hover:bg-[#fafafa] cursor-pointer pt-5 tablet:min-h-[430px]" key={ bookmark.id }>
+      <Link to={`/bookmarks/${bookmark.id}`} state={ {bookmark:bookmark} } className="group flex flex-col justify-between items-end w-full min-h-[420px] mb-10 hover:bg-[#fafafa] cursor-pointer pt-5 tablet:min-h-[430px]" key={ bookmark.id }>
         <div className="flex items-start h-16 w-full px-5 select-none ">
           <img src={ userProfile && userProfile.photo ? hostUrl + userProfile.photo : noPic } className="w-14 h-14 tablet:w-16 tablet:h-16 object-cover rounded-full"/>
           <div className="flex flex-col h-full font-roboto font-semibold ml-5 w-full">

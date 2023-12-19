@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
         path('add/<str:pk>/', views.add_bookmark, name="add-bookmark"),
-        path('get/<str:pk>/', views.get_bookmarks, name="get-bookmarks")
+        path('get/<str:pk>/', views.get_bookmarks, name="get-bookmarks"),
+        path('like/<str:pk>/', views.like_bookmark, name="like-bookmark")
         ]

@@ -191,7 +191,7 @@ function Dashboard() {
 
         { activeComp.feed && <Feed /> }
         { activeComp.people && <People /> }
-        { activeComp.bookmarks && <Bookmarks bookmarks = { bookmarks }/> }
+        { activeComp.bookmarks && <Bookmarks bookmarks = { bookmarks } getBookmarks = { getBookmarks }/> }
       </div>
 
       <TopBookmarks />

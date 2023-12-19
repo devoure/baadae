@@ -26,3 +26,18 @@ def get_bookmarks(request, pk):
     bookmarks = Bookmark.objects.all().filter(user=pk)
     res = BookmarkSerializers(bookmarks, many=True)
     return Response(res.data)
+
+
+@api_view((['POST']))
+def like_bookmark(request, pk):
+    user = User.objects.get(id=request.data["user"])
+    bookmark = Bookmark.objects.get(id=pk)
+    res = None
+    likes = Bookmark.objects.filter(id=pk).filter(users_like__in=[user]).count()
+    if likes == 0:
+        bookmark.users_like.add(user)
+    else:
+        bookmark.users_like.remove(user)
+    res = BookmarkSerializers(bookmark, many=False)
+    return Response(res.data)
+
