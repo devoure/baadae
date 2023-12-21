@@ -38,7 +38,7 @@ function Bookmarks(props){
             </div>
             <div className="h-full w-16 mr-5 flex flex-col items-center justify-center font-roboto font-semibold">
               <AiFillHeart className="text-white text-3xl"/>
-              <span className="text-white">{ "rr" }</span>
+              <span className="text-white">{ bookmark.users_like.length }</span>
             </div>
           </div>
         </div>

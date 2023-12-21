@@ -10,6 +10,7 @@ import { AiFillHeart } from "react-icons/ai"
 import { AiFillEye } from "react-icons/ai"
 
 import { AuthContext } from "../contexts/AuthContext.jsx"
+import { BookmarkCtx } from "../contexts/BookmarkCtx.jsx"
 
 function BookmarkComp() {
   function findLikes(liker){
@@ -17,10 +18,11 @@ function BookmarkComp() {
   }
 
   let { hostUrl, userProfile, userCred, user } = useContext(AuthContext)
+  let { getBookmarks, bookmarks } = useContext(BookmarkCtx)
   const location = useLocation()
   const { bookmark } = location.state
+  const [likesCount, setLikesCount] = useState(bookmark.users_like.length)
   const [liked, setLiked] = useState(()=> bookmark.users_like.find(findLikes) ? true : false )
-  console.log("PPSS", location.state)
 
   function likeUnlike(){
     fetch(`http://127.0.0.1:8000/api/bookmarks/v1/like/${bookmark.id}/`, {
@@ -31,9 +33,12 @@ function BookmarkComp() {
       body: JSON.stringify({user:user.user_id})
     }).then(response =>{
       if (response.status === 200){
-        // getBookmarks(user.user_id)
-        console.log(">>> books", bookmark)
+        getBookmarks(user.user_id)
+        setLiked(prev => !prev)
+        return response.json()
       }
+    }).then(data => {
+      setLikesCount(data.users_like.length)
     })
 
   }
@@ -75,7 +80,7 @@ function BookmarkComp() {
             </div>
             <div className="h-full w-16 mr-5 flex flex-col items-center justify-center font-roboto font-semibold">
               <AiFillHeart className={ !liked ? "text-white text-3xl cursor-pointer hover:scale-[1.1] transition duration-300" : "cursor-pointer text-rose-600 text-3xl hover:scale-[1.1] transition duration-300" } onClick={ likeUnlike }/ >
-              <span className="text-white">{ 6 }</span>
+              <span className="text-white">{ likesCount }</span>
             </div>
           </div>
         </div>

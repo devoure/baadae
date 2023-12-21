@@ -17,9 +17,11 @@ import { useState, useContext, useEffect } from "react"
 import { Link } from "react-router-dom"
 
 import { AuthContext } from "../contexts/AuthContext.jsx"
+import { BookmarkCtx } from "../contexts/BookmarkCtx.jsx"
 
 function Dashboard() {
   const { logOutUser, user, userProfile, userCred, hostUrl } = useContext(AuthContext)
+  const { bookmarks, getBookmarks } = useContext(BookmarkCtx)
   
 
   const [activeComp, setActiveComp] = useState({
@@ -68,16 +70,6 @@ function Dashboard() {
         "bookmarks":true
       })
     }
-  }
-
-  const [bookmarks, setBookmarks] = useState([])
-  let getBookmarks = async (id)=> {
-    let res = await fetch(`http://127.0.0.1:8000/api/bookmarks/v1/get/${id}/`) 
-    let data = await res.json()
-    if ( res.status === 200 ){
-      setBookmarks(data)
-    }
-    console.log(data)
   }
   useEffect(()=>{
     getBookmarks(user.user_id)
