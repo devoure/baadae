@@ -9,6 +9,7 @@ from .serializers import UserSerializers
 from .serializers import ProfileSerializers
 from .serializers import ProfileUpdateSerializers
 from .serializers import UserUpdateSerializers
+from .serializers import UsersSerializers
 
 from accounts.models import Profile
 from django.contrib.auth.models import User
@@ -82,3 +83,10 @@ def update_profile(request, pk):
         res = "ALL_SUCCESS"
 
     return Response(res)
+
+
+@api_view(['GET'])
+def get_baadae_users(request):
+    users = User.objects.filter(is_active=True).filter(is_superuser=False)
+    res = UsersSerializers(users, many=True)
+    return Response(res.data)
