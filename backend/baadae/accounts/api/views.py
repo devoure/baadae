@@ -89,4 +89,11 @@ def update_profile(request, pk):
 def get_baadae_users(request):
     users = User.objects.filter(is_active=True).filter(is_superuser=False)
     res = UsersSerializers(users, many=True)
-    return Response(res.data)
+    myres = []
+    for a in res.data:
+        person_data = {}
+        profile = Profile.objects.get(user=a['id'])
+        person_data['user'] = a
+        person_data['profile'] = ProfileSerializers(profile).data
+        myres.append(person_data)
+    return Response(myres)

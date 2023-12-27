@@ -28,7 +28,7 @@ function People(){
       }
     }).then(data => {
       if (data.photo){
-        return (hostUrl + data.photo)
+        return (noProfPic)
       } else {
         return noProfPic
       }
