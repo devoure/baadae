@@ -1,6 +1,6 @@
 import { BiArrowBack } from "react-icons/bi"
 import banner from "../assets/banner.jpg"
-import profPic from "../assets/profpic.png"
+import noProfPic from "../assets/nopic.png"
 import { MdEmail } from "react-icons/md"
 import { FaLocationDot } from "react-icons/fa6"
 import { BsFillCalendarEventFill } from "react-icons/bs"
@@ -9,11 +9,17 @@ import { BsBookmarkFill } from "react-icons/bs"
 import { BiSolidUser } from "react-icons/bi"
 import feeds from "../assets/feeds.jsx"
 import { AiFillEye } from "react-icons/ai"
+import { useContext } from "react"
+
+import { AuthContext } from "../contexts/AuthContext.jsx"
 
 import { Link, useLocation } from "react-router-dom"
 
 function PeopleComp() {
-  const peopleDetail = useLocation()
+  let { hostUrl } = useContext(AuthContext)
+  const location = useLocation()
+  const { person } = location.state
+  console.log(">>>>>", person)
   const feedsCard = feeds.map((feed)=>{
     return(
       <div className="group w-full h-[400px] mb-4 flex flex-col items-center hover:bg-[#ebebeb] cursor-pointer" key={ feed.id }>
@@ -42,7 +48,7 @@ function PeopleComp() {
         </Link>
 
         <div className="h-12 w-max flex items-center justify-center font-roboto font-semibold text-xl pl-4 select-none whitespace-nowrap">
-          <span>{ peopleDetail.state.name }</span>
+          <span>{ person.user.first_name + " " + person.user.last_name }</span>
         </div>
       </div>
 
@@ -50,7 +56,7 @@ function PeopleComp() {
         <div className="w-[90%] h-[90%] relative">
           <img src={ banner } className="h-full w-full object-cover"/>
           <div className="h-20 w-20 bottom-[-2.4rem] left-2 rounded-full absolute bg-white overflow-hidden border-4 border-white">
-            <img src={ peopleDetail.state.profpic } className="h-full w-full object-cover" />
+            <img src={ person.profile.photo ? hostUrl + person.profile.photo : noProfPic } className="h-full w-full object-cover" />
           </div>
         </div>
       </div>
@@ -61,15 +67,15 @@ function PeopleComp() {
 
       <div className="flex flex-col h-[200px] select-none whitespace-nowrap items-center">
         <div className="w-[90%] h-max flex flex-col font-roboto">
-          <div className="py-2 text-2xl font-semibold text-[#220e0a]">{ peopleDetail.state.name }</div>
+          <div className="py-2 text-2xl font-semibold text-[#220e0a]">{ person.user.first_name + " " + person.user.last_name }</div>
           <div className="pt-2 flex w-max items-center cursor-pointer hover:border-b-2 border-[#d6a97d]">
             <MdEmail  className="text-[#220e0a] mr-2 text-2xl"/>
-            <span className="text-[#d6a97d] font-semibold">{ peopleDetail.state.email }</span>
+            <span className="text-[#d6a97d] font-semibold">{ person.user.email }</span>
           </div>
         </div>
 
         <div className="pt-2 flex w-[90%] h-max font-roboto text-[#4f352a] font-semibold mb-4">
-          <span>Aesthetics Fanatic here, show some love</span>
+          <span>{ person.profile.bio }</span>
         </div>
 
         <div className="flex w-[90%] h-9 font-roboto items-center px-2">
@@ -87,12 +93,12 @@ function PeopleComp() {
         <div className="flex w-[90%] h-9 font-roboto items-center px-2">
           <div className="flex h-16 items-center ">
             <AiFillHeart className="text-[#220e0a] text-2xl"/>
-            <span className="text-[#4f352a] ml-2"><span className="font-semibold">{ peopleDetail.state.likes }</span> Likes</span>
+            <span className="text-[#4f352a] ml-2"><span className="font-semibold">{ 44 }</span> Likes</span>
           </div>
 
           <div className="flex h-16 p-2 items-center ">
             <BsBookmarkFill className="text-[#220e0a] text-lg"/>
-            <span className="text-[#4f352a] ml-2"><span className="font-semibold">{ peopleDetail.state.bookmarks }</span> Bookmarks</span>
+            <span className="text-[#4f352a] ml-2"><span className="font-semibold">{ 5 }</span> Bookmarks</span>
           </div>
 
           <div className="flex h-16 p-2 items-center ">
