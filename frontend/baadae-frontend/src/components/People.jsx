@@ -30,7 +30,7 @@ function People(){
           </div>
           <div className="flex items-center">
             <BsBookmarkFill className="text-lg tablet:text-xl mr-3 text-[#d6a97d]"/>
-            <span className="text-sm text-[#220e0a]">{ 5 } bookmarks</span>
+            <span className="text-sm text-[#220e0a]">{ person.bookmarks_count } bookmarks</span>
           </div>
         </div>
       </Link>

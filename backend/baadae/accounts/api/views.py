@@ -13,6 +13,7 @@ from .serializers import UsersSerializers
 
 from accounts.models import Profile
 from django.contrib.auth.models import User
+from bookmarks.models import Bookmark
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -95,5 +96,7 @@ def get_baadae_users(request):
         profile = Profile.objects.get(user=a['id'])
         person_data['user'] = a
         person_data['profile'] = ProfileSerializers(profile).data
+        bookmarks_count = Bookmark.objects.all().filter(user=a['id']).count()
+        person_data['bookmarks_count'] = bookmarks_count
         myres.append(person_data)
     return Response(myres)
