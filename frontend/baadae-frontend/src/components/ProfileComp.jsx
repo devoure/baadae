@@ -8,7 +8,6 @@ import { BsFillCalendarEventFill } from "react-icons/bs"
 import { AiFillHeart } from "react-icons/ai"
 import { BsBookmarkFill } from "react-icons/bs"
 import { BiSolidUser } from "react-icons/bi"
-import feeds from "../assets/feeds.jsx"
 import { AiFillEye } from "react-icons/ai"
 
 import { useContext } from "react"
@@ -16,23 +15,25 @@ import { useContext } from "react"
 import { Link } from "react-router-dom"
 
 import { AuthContext } from "../contexts/AuthContext.jsx"
+import { BookmarkCtx } from "../contexts/BookmarkCtx.jsx"
 
 function ProfileComp(props) {
   const { user, userProfile, userCred, hostUrl } = useContext(AuthContext)
-  const feedsCard = feeds.map((feed)=>{
+  const { bookmarks } = useContext(BookmarkCtx)
+  const feedsCard = bookmarks.map((bookmark)=>{
     return(
-      <div className="group w-full h-[400px] mb-4 flex flex-col items-center hover:bg-[#ebebeb] cursor-pointer" key={ feed.id }>
-        <span className="flex h-16 w-[90%] items-center text-[#4f352a] text-lg font-roboto font-semibold">{ feed.desc }</span>
+      <div className="group w-full h-[400px] mb-4 flex flex-col items-center hover:bg-[#ebebeb] cursor-pointer" key={ bookmark.id }>
+        <span className="flex h-16 w-[90%] items-center text-[#4f352a] text-lg font-roboto font-semibold">{ bookmark.desc }</span>
         <div className="w-[80%] h-[340px] rounded-xl overflow-hidden relative">
-          <img src={ feed.bookmark } className="w-full h-full object-cover"/> 
+          <img src={ hostUrl + bookmark.image } className="w-full h-full object-cover"/> 
           <div className="absolute flex items-center justify-center inset-x-0 bottom-0 h-0 group-hover:h-16 bg-[#220e0acc] overflow-hidden transition-all duration-300">
             <div className="h-full w-16 mr-5 flex flex-col items-center justify-center font-roboto font-semibold">
               <AiFillEye className="text-white text-4xl"/>
-              <span className="text-white">{ feed.views }</span>
+              <span className="text-white">{ 22 }</span>
             </div>
             <div className="h-full w-16 mr-5 flex flex-col items-center justify-center font-roboto font-semibold">
               <AiFillHeart className="text-white text-3xl"/>
-              <span className="text-white">{ feed.likes }</span>
+              <span className="text-white">{ bookmark.users_like.length }</span>
             </div>
           </div>
         </div>
@@ -40,7 +41,7 @@ function ProfileComp(props) {
     )
   })
   return (
-    <div className={ props.editActive ? "min-w-[375px] flex flex-col blur-sm" : "min-w-[375px] flex flex-col" }>
+    <div className={ props.editActive ? "min-w-[375px] flex flex-col blur-sm tablet:w-[600px]" : "min-w-[375px] flex flex-col tablet:w-[600px]" }>
       <div className="w-full h-20 flex items-center pl-4 text-[#220e0a] border-b border-[#ebebeb]">
         <Link to='/baadae' className="h-12 w-12 flex hover:bg-[#ebebeb] rounded-full cursor-pointer items-center justify-center text-3xl transition duration-300">
           <BiArrowBack />
@@ -97,7 +98,7 @@ function ProfileComp(props) {
 
           <div className="flex h-16 p-2 items-center ">
             <BsBookmarkFill className="text-[#220e0a] text-lg"/>
-            <span className="text-[#4f352a] ml-2"><span className="font-semibold">5</span> Bookmarks</span>
+            <span className="text-[#4f352a] ml-2"><span className="font-semibold">{ bookmarks.length }</span> Bookmarks</span>
           </div>
 
           <div className="flex h-16 p-2 items-center ">
