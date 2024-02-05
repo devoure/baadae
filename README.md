@@ -20,7 +20,6 @@
   1. User Profiles
   1. Match up
   1. Add Bookmark
-  1. Added follow system
   1. More
 
 
