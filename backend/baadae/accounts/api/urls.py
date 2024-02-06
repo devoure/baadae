@@ -15,5 +15,6 @@ urlpatterns = [
     path('users/<str:pk>/', views.get_user, name="get-user"),
     path('profiles/', views.get_profiles, name="get-profiles"),
     path('profiles/<str:pk>/', views.get_profile, name="get-profile"),
-    path('profiles/edit/<str:pk>/', views.update_profile, name="update-profile")
+    path('profiles/edit/<str:pk>/', views.update_profile, name="update-profile"),
+    path('users/follow/<str:pk>/', views.follow, name="follow-user"),
 ]

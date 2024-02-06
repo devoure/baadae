@@ -111,12 +111,11 @@ def follow(request, pk):
 
     # Check if user follows the user
     follower = Contact.objects.filter(user_from=user1, user_to=user2).count()
-    res = None
 
     if follower == 0:
         Contact.objects.get_or_create(user_from=user1, user_to=user2)
-        res = "{} just followed {}".format(user1.username, user2.username)
+        res = UsersSerializers(user2, many=False)
     else:
-        Contact.objects.filter(user_from=request.user1, user_to=user2).delete()
-        res = "{} just unfollowed {}".format(user1.username, user2.username)
-    return Response(res)
+        Contact.objects.filter(user_from=user1, user_to=user2).delete()
+        res = UsersSerializers(user2, many=False)
+    return Response(res.data)
