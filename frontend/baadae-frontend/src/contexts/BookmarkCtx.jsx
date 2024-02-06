@@ -1,16 +1,26 @@
-import { createContext, useState } from "react"
+import { createContext, useState, useContext } from "react"
+
+import { AuthContext } from "../contexts/AuthContext.jsx"
+
 
 export const BookmarkCtx = createContext()
 
 export default function BookmarksProvider(props){
   const [bookmarks, setBookmarks] = useState([])
   const [people, setPeople] = useState([])
+
+  let { user } = useContext(AuthContext)
+
   let getPeople = async() => {
     let res = await fetch(`http://127.0.0.1:8000/api/accounts/v1/users/`)
     let data = await res.json()
     if (res.status === 200){
-      setPeople(data)
+      let filteredData = data.filter(filterPeople)
+      setPeople(filteredData)
     }
+  }
+  function filterPeople(person){
+    return person["user"].id != user.user_id
   }
   let getBookmarks = async (id)=> {
     let res = await fetch(`http://127.0.0.1:8000/api/bookmarks/v1/get/${id}/`) 

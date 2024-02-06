@@ -14,6 +14,7 @@ from .serializers import UsersSerializers
 from accounts.models import Profile
 from django.contrib.auth.models import User
 from bookmarks.models import Bookmark
+from accounts.models import Contact
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -100,3 +101,22 @@ def get_baadae_users(request):
         person_data['bookmarks_count'] = bookmarks_count
         myres.append(person_data)
     return Response(myres)
+
+
+@api_view(['POST'])
+def follow(request, pk):
+    # User1 folllows user2
+    user1 = User.objects.get(id=pk)
+    user2 = User.objects.get(id=request.data["user"])
+
+    # Check if user follows the user
+    follower = Contact.objects.filter(user_from=user1, user_to=user2).count()
+    res = None
+
+    if follower == 0:
+        Contact.objects.get_or_create(user_from=user1, user_to=user2)
+        res = "{} just followed {}".format(user1.username, user2.username)
+    else:
+        Contact.objects.filter(user_from=request.user1, user_to=user2).delete()
+        res = "{} just unfollowed {}".format(user1.username, user2.username)
+    return Response(res)
