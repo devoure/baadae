@@ -113,7 +113,7 @@ function PeopleComp() {
 
           <div className="flex h-16 p-2 items-center ">
             <BiSolidUser className="text-[#220e0a] text-2xl"/>
-            <span className="text-[#4f352a] ml-2"><span className="font-semibold">5.6k</span> Followers</span>
+            <span className="text-[#4f352a] ml-2"><span className="font-semibold">{ person.followers.length }</span> Followers</span>
           </div>
 
         </div>
