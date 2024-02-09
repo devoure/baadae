@@ -38,7 +38,7 @@ class ProfileSerializers(serializers.ModelSerializer):
 class UserUpdateSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'date_joined')
+        fields = ('first_name', 'last_name', 'email', 'date_joined', 'followers')
 
 
 class ProfileUpdateSerializers(serializers.ModelSerializer):

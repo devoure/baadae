@@ -18,7 +18,6 @@ function PeopleComp() {
   let { hostUrl } = useContext(AuthContext)
   const location = useLocation()
   const { person } = location.state
- 
   const [bookmarks, setBookmarks] = useState([])
   let getBookmarks = async (id)=> {
     let res = await fetch(`http://127.0.0.1:8000/api/bookmarks/v1/get/${id}/`) 
@@ -113,7 +112,7 @@ function PeopleComp() {
 
           <div className="flex h-16 p-2 items-center ">
             <BiSolidUser className="text-[#220e0a] text-2xl"/>
-            <span className="text-[#4f352a] ml-2"><span className="font-semibold">{ person.followers.length }</span> Followers</span>
+            <span className="text-[#4f352a] ml-2"><span className="font-semibold">{ person.user.followers.length }</span> Followers</span>
           </div>
 
         </div>
