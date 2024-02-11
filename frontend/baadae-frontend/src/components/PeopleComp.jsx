@@ -10,12 +10,14 @@ import { BiSolidUser } from "react-icons/bi"
 import { AiFillEye } from "react-icons/ai"
 import { useContext, useState, useEffect } from "react"
 
+import { BookmarkCtx } from "../contexts/BookmarkCtx.jsx"
 import { AuthContext } from "../contexts/AuthContext.jsx"
 
 import { Link, useLocation } from "react-router-dom"
 
 function PeopleComp() {
-  let { hostUrl } = useContext(AuthContext)
+  let { hostUrl, user } = useContext(AuthContext)
+  let { getPeople } = useContext(BookmarkCtx)
   const location = useLocation()
   const { person } = location.state
   const [bookmarks, setBookmarks] = useState([])
@@ -29,6 +31,11 @@ function PeopleComp() {
   useEffect(()=>{
     getBookmarks(person.user.id)
   }, [])
+  function checkFollowStatus(follower){
+    return user.user_id == follower
+  }
+  const [followed, setFollowed] = useState(()=> person.user.followers.find(checkFollowStatus) ? true : false)
+  const [followersCount, setFollowersCount] = useState(person.user.followers.length)
   const feedsCard = bookmarks.map((bookmark)=>{
     return(
       <div className="group w-full h-[400px] mb-4 flex flex-col items-center hover:bg-[#ebebeb] cursor-pointer" key={ bookmark.id }>
@@ -49,6 +56,23 @@ function PeopleComp() {
       </div>
     )
   })
+  function followUnfollow(){
+    fetch(`http://127.0.0.1:8000/api/accounts/v1/users/follow/${user.user_id}/`, {
+      method: 'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify({user:person.user.id})
+    }).then(response =>{
+      if (response.status === 200){
+        getPeople(user.user_id)
+        setFollowed(prev => !prev)
+        return response.json()
+      }
+    }).then(data => {
+      setFollowersCount(data.followers.length)
+    })
+  }
   return (
     <div className="min-w-[375px] flex flex-col tablet:w-[600px]">
       <div className="w-full h-20 flex items-center pl-4 text-[#220e0a] border-b border-[#ebebeb]">
@@ -71,7 +95,7 @@ function PeopleComp() {
       </div>
 
       <div className="flex h-16 font-roboto font-semibold text-white items-center justify-end text-lg">
-        <span className="bg-[#220e0a] mr-[4rem] px-6 py-2 rounded-[4rem] select-none cursor-pointer">Follow</span>
+        <span className={ followed ? "bg-red-700 hover:bg-red-400 hover:text-black mr-[4rem] px-6 py-2 rounded-[4rem] select-none cursor-pointer transition-all duration-300" : "bg-[#220e0a] hover:bg-[#d6a97d] hover:text-black mr-[4rem] px-6 py-2 rounded-[4rem] select-none cursor-pointer transition-all duration-300" } onClick={ followUnfollow }>{ followed ? "Unfollow" : "Follow" }</span>
       </div>
 
       <div className="flex flex-col h-[200px] select-none whitespace-nowrap items-center">
@@ -112,7 +136,7 @@ function PeopleComp() {
 
           <div className="flex h-16 p-2 items-center ">
             <BiSolidUser className="text-[#220e0a] text-2xl"/>
-            <span className="text-[#4f352a] ml-2"><span className="font-semibold">{ person.user.followers.length }</span> Followers</span>
+            <span className="text-[#4f352a] ml-2"><span className="font-semibold">{ followersCount }</span> Followers</span>
           </div>
 
         </div>
