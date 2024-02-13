@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     "accounts.apps.AccountsConfig",
     "bookmarks.apps.BookmarksConfig",
+    "actions.apps.ActionsConfig"
 
     "rest_framework",
     "corsheaders",
