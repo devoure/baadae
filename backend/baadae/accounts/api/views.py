@@ -36,10 +36,10 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 @api_view((['POST']))
 def add_user(request):
-    new_user = UserSerializers(data=request.data)
+    new_user = UserSerializers(data=request.data, partial=True)
     if new_user.is_valid():
         new_user.save()
-        create_action(new_user, 'has joined')
+        #create_action(new_user, 'has joined')
         return Response("OK")
     return Response("ERROR") 
 
@@ -116,7 +116,7 @@ def follow(request, pk):
 
     if follower == 0:
         Contact.objects.get_or_create(user_from=user1, user_to=user2)
-        create_action(user1, 'is following', user2)
+        #create_action(user1, 'is following', user2)
         res = UsersSerializers(user2, many=False)
     else:
         Contact.objects.filter(user_from=user1, user_to=user2).delete()

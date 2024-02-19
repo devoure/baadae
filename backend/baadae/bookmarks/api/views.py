@@ -23,11 +23,20 @@ def add_bookmark(request, pk):
 
 
 @api_view((['GET']))
-def get_bookmarks(request, pk):
+def get_bookmarks(request):
+    # user = User.objects.get(id=pk)
+    bookmarks = Bookmark.objects.all()
+    res = BookmarkSerializers(bookmarks, many=True)
+    return Response(res.data)
+
+
+@api_view((['GET']))
+def get_user_bookmarks(request, pk):
     # user = User.objects.get(id=pk)
     bookmarks = Bookmark.objects.all().filter(user=pk)
     res = BookmarkSerializers(bookmarks, many=True)
     return Response(res.data)
+
 
 
 @api_view((['POST']))

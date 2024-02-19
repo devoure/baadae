@@ -1,12 +1,21 @@
-import feeds from "../assets/feeds.jsx"
 import { AiFillHeart } from "react-icons/ai"
 import { AiFillEye } from "react-icons/ai"
 
 import { Link } from "react-router-dom"
+import { useContext, useEffect } from "react"
+
+import { AuthContext } from "../contexts/AuthContext.jsx"
+import { BookmarkCtx } from "../contexts/BookmarkCtx.jsx"
 
 
 function Feed(){
-
+  let { getFeeds, feeds } = useContext(BookmarkCtx)
+  let { user } = useContext(AuthContext)
+  
+  useEffect(()=>{
+    getFeeds(user.user_id)
+  }, [])
+  console.log(">>> Feeds", feeds)
   const feedsCard = feeds.map((feed)=>{
     return(
       <Link to={ `/bookmarks/${ feed.id }` } state={ feed } className="group flex flex-col justify-between items-end w-full min-h-[420px] mb-10 hover:bg-[#fafafa] cursor-pointer pt-5 tablet:min-h-[430px]" key={ feed.id }>
@@ -39,7 +48,7 @@ function Feed(){
     )
   })
   return (
-    <div className="flex flex-col min-w-[375px] pt-[130px] tablet:max-w-[600px]">
+    <div className="flex flex-col min-w-[375px] pt-[130px] tablet:w-[600px]">
       { feedsCard }
     </div>
   )

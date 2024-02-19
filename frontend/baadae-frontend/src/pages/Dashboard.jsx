@@ -72,7 +72,7 @@ function Dashboard() {
     }
   }
   useEffect(()=>{
-    getBookmarks(user.user_id)
+    getBookmarks()
   }, [])
 
   return (

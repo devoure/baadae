@@ -9,6 +9,7 @@ from .serializers import ActionSerializers
 def get_actions(request, pk):
     user = User.objects.get(id=pk)
     actions = Action.objects.exclude(user=pk)
+    actions = actions.exclude(verb="is following")
     following_ids = user.following.values_list('id', flat=True)
     if following_ids:
         actions = actions.filter(user_id__in=following_ids)
