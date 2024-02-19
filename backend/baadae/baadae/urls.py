@@ -21,7 +21,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('api/accounts/v1/', include('accounts.api.urls')),
-    path('api/bookmarks/v1/', include('bookmarks.api.urls'))
+    path('api/bookmarks/v1/', include('bookmarks.api.urls')),
+    path('api/actions/v1/', include('actions.api.urls'))
 ]
 
 if settings.DEBUG:
