@@ -6,6 +6,7 @@ from .serializers import BookmarkSerializers
 
 from django.contrib.auth.models import User
 from bookmarks.models import Bookmark
+from actions.utils import create_action
 
 
 @api_view((['POST']))
@@ -15,6 +16,7 @@ def add_bookmark(request, pk):
     new_bookmark = BookmarkSerializers(data=request.data)
     if new_bookmark.is_valid():
         new_bookmark.save()
+        create_action(request.data["user"], 'bookmarked image', new_bookmark)
         return Response("OK")
     # print(">>>", new_bookmark.errors)
     return Response("ERROR")
@@ -36,6 +38,7 @@ def like_bookmark(request, pk):
     likes = Bookmark.objects.filter(id=pk).filter(users_like__in=[user]).count()
     if likes == 0:
         bookmark.users_like.add(user)
+        create_action(user, 'likes', bookmark)
     else:
         bookmark.users_like.remove(user)
     res = BookmarkSerializers(bookmark, many=False)

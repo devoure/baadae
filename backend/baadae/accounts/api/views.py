@@ -15,6 +15,7 @@ from accounts.models import Profile
 from django.contrib.auth.models import User
 from bookmarks.models import Bookmark
 from accounts.models import Contact
+from actions.utils import create_action
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -38,6 +39,7 @@ def add_user(request):
     new_user = UserSerializers(data=request.data)
     if new_user.is_valid():
         new_user.save()
+        create_action(new_user, 'has joined')
         return Response("OK")
     return Response("ERROR") 
 
@@ -114,6 +116,7 @@ def follow(request, pk):
 
     if follower == 0:
         Contact.objects.get_or_create(user_from=user1, user_to=user2)
+        create_action(user1, 'is following', user2)
         res = UsersSerializers(user2, many=False)
     else:
         Contact.objects.filter(user_from=user1, user_to=user2).delete()
