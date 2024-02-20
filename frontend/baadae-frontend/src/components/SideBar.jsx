@@ -17,7 +17,7 @@ import { BookmarkCtx } from "../contexts/BookmarkCtx.jsx"
 function SideBar(props){
 
   let { logOutUser, userCred, userProfile, hostUrl } = useContext(AuthContext)
-  let { bookmarks } = useContext(BookmarkCtx)
+  let { userBookmarks } = useContext(BookmarkCtx)
   let [other, setOther] = useState(false)
   return (
     <div className="hidden tablet:flex sticky inset-y-0 left-0 h-screen w-[80px] laptop:w-[300px] border-r border-r-[#baaf98]">
@@ -47,7 +47,7 @@ function SideBar(props){
 
           <div className="flex items-center justify-start w-full mb-5">
             <div className="w-16 h-16 flex items-center justify-center relative">
-              <span className="absolute right-1 top-1 bg-[#d6a97d] w-7 h-7 flex items-center justify-center rounded-full font-roboto font-semibold text-[#220e0a] select-none">{ bookmarks.length }</span>
+              <span className="absolute right-1 top-1 bg-[#d6a97d] w-7 h-7 flex items-center justify-center rounded-full font-roboto font-semibold text-[#220e0a] select-none">{ userBookmarks.length }</span>
               <BsBookmarkFill className="text-3xl text-[#220e0a]"/>
             </div>
             <div className="hidden laptop:block">

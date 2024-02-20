@@ -21,7 +21,7 @@ import { BookmarkCtx } from "../contexts/BookmarkCtx.jsx"
 
 function Dashboard() {
   const { logOutUser, user, userProfile, userCred, hostUrl } = useContext(AuthContext)
-  const { bookmarks, getBookmarks } = useContext(BookmarkCtx)
+  const { bookmarks, getBookmarks, getUserBookmarks } = useContext(BookmarkCtx)
   
 
   const [activeComp, setActiveComp] = useState({
@@ -73,6 +73,7 @@ function Dashboard() {
   }
   useEffect(()=>{
     getBookmarks()
+    getUserBookmarks()
   }, [])
 
   return (
