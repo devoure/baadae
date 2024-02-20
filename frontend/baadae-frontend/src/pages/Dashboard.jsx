@@ -73,7 +73,7 @@ function Dashboard() {
   }
   useEffect(()=>{
     getBookmarks()
-    getUserBookmarks()
+    getUserBookmarks(user.user_id)
   }, [])
 
   return (

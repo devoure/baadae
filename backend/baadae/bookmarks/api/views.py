@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 # from rest_framework import status
 
+from .serializers import AddBookmarkSerializers
 from .serializers import BookmarkSerializers
 
 from django.contrib.auth.models import User
@@ -11,14 +12,14 @@ from actions.utils import create_action
 
 @api_view((['POST']))
 def add_bookmark(request, pk):
-    # user = User.objects.get(id=pk)
+    user = User.objects.get(id=pk)
     request.data["user"] = pk
-    new_bookmark = BookmarkSerializers(data=request.data)
+    new_bookmark = AddBookmarkSerializers(data=request.data)
     if new_bookmark.is_valid():
-        new_bookmark.save()
-        create_action(request.data["user"], 'bookmarked image', new_bookmark)
+        target = new_bookmark.save()
+        create_action(user, 'bookmarked', target)
         return Response("OK")
-    # print(">>>", new_bookmark.errors)
+    print(">>>", new_bookmark.errors)
     return Response("ERROR")
 
 
@@ -36,7 +37,6 @@ def get_user_bookmarks(request, pk):
     bookmarks = Bookmark.objects.all().filter(user=pk)
     res = BookmarkSerializers(bookmarks, many=True)
     return Response(res.data)
-
 
 
 @api_view((['POST']))

@@ -14,7 +14,12 @@ class UserSerializers(serializers.ModelSerializer):
 class ActionObjectRelatedField(serializers.RelatedField):
     def to_representation(self, value):
         if isinstance(value, Bookmark):
-            return value.image.url
+            return ({"user": "{} {}".format(value.user.first_name, value.user.last_name),
+                     "photo": value.user.profile.photo.url,
+                     "bookmark": value.image.url,
+                     "desc": value.desc,
+                     "title": value.title,
+                     "likes": value.users_like.count()})
         raise Exception('Unexpected type of tagged object')
 
 

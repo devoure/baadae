@@ -25,3 +25,9 @@ class BookmarkSerializers(serializers.ModelSerializer):
     class Meta:
         model = Bookmark
         fields = "__all__"
+
+
+class AddBookmarkSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Bookmark
+        fields = "__all__"
