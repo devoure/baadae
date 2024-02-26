@@ -55,7 +55,7 @@ function BookmarkComp() {
         </Link>
 
         <div className="h-12 w-max flex items-center justify-center font-roboto font-semibold text-2xl pl-4 select-none whitespace-nowrap">
-          <span>Feed</span>
+          <span>Bookmark</span>
         </div>
       </div>
       
