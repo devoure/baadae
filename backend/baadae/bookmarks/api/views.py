@@ -8,6 +8,7 @@ from .serializers import BookmarkSerializers
 from django.contrib.auth.models import User
 from bookmarks.models import Bookmark
 from actions.utils import create_action
+import redis
 
 
 @api_view((['POST']))
